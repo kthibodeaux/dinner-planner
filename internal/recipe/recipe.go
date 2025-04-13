@@ -16,16 +16,3 @@ type Part struct {
 	PrepTime    int      `toml:"prep_time"`
 	Steps       []string `toml:"steps"`
 }
-
-func NewRecipe(name, cookbookCategory, source string, parts []Part) *Recipe {
-	return &Recipe{
-		Name:             name,
-		CookbookCategory: cookbookCategory,
-		Source:           source,
-		Parts:            parts,
-	}
-}
-
-func (r *Recipe) AddPart(part Part) {
-	r.Parts = append(r.Parts, part)
-}
