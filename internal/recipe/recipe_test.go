@@ -29,10 +29,10 @@ func TestAddPart(t *testing.T) {
 	recipe := &Recipe{}
 
 	newPart := Part{
-		CookTime:    TimeUnit{Amount: 30, Unit: "minutes"},
+		CookTime:    30,
 		Ingredients: []string{"1/2 cup; greek yogurt", "1/2 cup; coconut milk", "1/2 tsp; salt"},
 		Name:        "Garnish",
-		PrepTime:    TimeUnit{Amount: 1, Unit: "hours"},
+		PrepTime:    60,
 		Steps:       []string{"Mix yogurt, coconut milk, and salt for garnish."},
 	}
 

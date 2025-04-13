@@ -25,8 +25,8 @@ Define parts using the `[parts.<name>]` table. If a recipe has a single part, us
 | Field            | Type               | Required | Description |
 |------------------|--------------------|----------|-------------|
 | `name`           | `string`           | y        | Display name for this part. |
-| `prep_time`      | `TimeUnit`         | n        | Preparation time for this part. |
-| `cook_time`      | `TimeUnit`         | n        | Cooking time for this part. |
+| `prep_time`      | `int`              | n        | Preparation time in minutes for this part. |
+| `cook_time`      | `int`              | n        | Cooking time in minutes for this part. |
 | `ingredients`    | `array of strings` | n        | List of ingredients specific to this part. Each string can optionally include a quantity and unit, separated by `;`. |
 | `steps`          | `array of strings` | n        | Step-by-step instructions specific to this part. |
 
@@ -44,10 +44,8 @@ steps = [
 ]
 
 [parts.tortilla]
-prep_time.amount = 10
-prep_time.unit = "minutes"
-cook_time.amount = 15
-cook_time.unit = "minutes"
+cook_time = 10
+prep_time = 10
 name = "Tortilla"
 ingredients = [
   "16 oz; Flour",
@@ -56,20 +54,4 @@ ingredients = [
 steps = [
   "Combine ingredients...",
 ]
-```
-
-### TimeUnit Format
-
-`prep_time` and `cook_time` are expressed as subtables using the following structure:
-
-| Field    | Type     | Required | Description                  |
-|----------|----------|----------|------------------------------|
-| `amount` | `integer`| y        | Numerical time value.        |
-| `unit`   | `string` | y        | Time unit (`"minutes"`, `"hours"`, etc). |
-
-### Example:
-
-```toml
-prep_time.amount = 15
-prep_time.unit = "minutes"
 ```

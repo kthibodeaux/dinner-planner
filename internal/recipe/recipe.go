@@ -1,23 +1,20 @@
 package recipe
 
 type Recipe struct {
-	CookbookCategory string
-	Name             string
-	Parts            []Part
-	Source           string
+	CookbookCategory string `toml:"category"`
+	ID               string
+	Name             string `toml:"name"`
+	Parts            []Part `toml:"groups"`
+	Source           string `toml:"source"`
+	DependencyIDs    []string
 }
 
 type Part struct {
-	CookTime    TimeUnit
-	Ingredients []string
-	Name        string
-	PrepTime    TimeUnit
-	Steps       []string
-}
-
-type TimeUnit struct {
-	Amount int
-	Unit   string
+	CookTime    int      `toml:"cook_time"`
+	Ingredients []string `toml:"ingredients"`
+	Name        string   `toml:"name"`
+	PrepTime    int      `toml:"prep_time"`
+	Steps       []string `toml:"steps"`
 }
 
 func NewRecipe(name, cookbookCategory, source string, parts []Part) *Recipe {
