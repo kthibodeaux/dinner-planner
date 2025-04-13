@@ -13,7 +13,6 @@ These fields are declared at the top level of each TOML file:
 | `name`               | `string`           | y        | The recipe's display name. |
 | `cookbook_category`  | `string`           | n        | High-level cookbook grouping (e.g., `Entrees`, `Desserts`). |
 | `source`             | `string`           | n        | URL or book reference for the recipe. |
-| `include_in_cookbook`| `bool`             | n        | Whether to include this recipe in cookbook exports. |
 | `tags`               | `array of strings` | n        | Arbitrary tags like `"chicken"`, `"quick"`, etc. |
 | `dependencies`       | `array of strings` | n        | Other recipes this one depends on (file names without extensions). |
 

@@ -6,7 +6,7 @@ import (
 
 func TestNewRecipe(t *testing.T) {
 	part := &Part{}
-	recipe := NewRecipe("Pasta", "Main Course", "Italian Cookbook", true, []Part{*part})
+	recipe := NewRecipe("Pasta", "Main Course", "Italian Cookbook", []Part{*part})
 
 	if recipe.Name != "Pasta" {
 		t.Errorf("Expected name 'Pasta', got '%s'", recipe.Name)
@@ -18,10 +18,6 @@ func TestNewRecipe(t *testing.T) {
 
 	if recipe.Source != "Italian Cookbook" {
 		t.Errorf("Expected source 'Italian Cookbook', got '%s'", recipe.Source)
-	}
-
-	if !recipe.IncludeInCookbook {
-		t.Error("Expected IncludeInCookbook to be true")
 	}
 
 	if len(recipe.Parts) != 1 {

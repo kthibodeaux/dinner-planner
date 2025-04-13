@@ -1,11 +1,10 @@
 package recipe
 
 type Recipe struct {
-	CookbookCategory  string
-	IncludeInCookbook bool
-	Name              string
-	Parts             []Part
-	Source            string
+	CookbookCategory string
+	Name             string
+	Parts            []Part
+	Source           string
 }
 
 type Part struct {
@@ -21,13 +20,12 @@ type TimeUnit struct {
 	Unit   string
 }
 
-func NewRecipe(name, cookbookCategory, source string, includeInCookbook bool, parts []Part) *Recipe {
+func NewRecipe(name, cookbookCategory, source string, parts []Part) *Recipe {
 	return &Recipe{
-		Name:              name,
-		CookbookCategory:  cookbookCategory,
-		Source:            source,
-		IncludeInCookbook: includeInCookbook,
-		Parts:             parts,
+		Name:             name,
+		CookbookCategory: cookbookCategory,
+		Source:           source,
+		Parts:            parts,
 	}
 }
 
