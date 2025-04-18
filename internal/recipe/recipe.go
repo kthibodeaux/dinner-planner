@@ -3,12 +3,12 @@ package recipe
 import "fmt"
 
 type Recipe struct {
-	CookbookCategory string `toml:"category"`
-	ID               string
-	Name             string       `toml:"name"`
-	Parts            []Part       `toml:"parts"`
-	Source           string       `toml:"source"`
+	CookbookCategory string       `toml:"category"`
 	Dependencies     []Dependency `toml:"dependencies"`
+	ID               string
+	Name             string `toml:"name"`
+	Parts            []Part `toml:"parts"`
+	Source           string `toml:"source"`
 }
 
 type Part struct {
