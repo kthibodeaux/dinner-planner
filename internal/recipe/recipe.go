@@ -1,7 +1,5 @@
 package recipe
 
-import "fmt"
-
 type Recipe struct {
 	CookbookCategory string       `toml:"category"`
 	Dependencies     []Dependency `toml:"dependencies"`
@@ -34,35 +32,4 @@ type Dependency struct {
 	RecipeID string `toml:"recipe_id"`
 	Replaces string `toml:"replaces"`
 	Required bool   `toml:"required"`
-}
-
-func (ingredientList *IngredientList) UnmarshalTOML(data any) error {
-	list, ok := data.([]any)
-	if !ok {
-		return fmt.Errorf("expected list of ingredients, got %T", data)
-	}
-
-	for _, item := range list {
-		entry, ok := item.([]any)
-		if !ok {
-			return fmt.Errorf("expected ingredient entry to be a list, got %T", item)
-		}
-
-		ingredient := Ingredient{}
-		switch len(entry) {
-		case 3:
-			ingredient.Unit = fmt.Sprint(entry[2])
-			fallthrough
-		case 2:
-			ingredient.Quantity = fmt.Sprint(entry[1])
-			fallthrough
-		case 1:
-			ingredient.Name = fmt.Sprint(entry[0])
-		default:
-			return fmt.Errorf("invalid ingredient format: %v", entry)
-		}
-
-		*ingredientList = append(*ingredientList, ingredient)
-	}
-	return nil
 }
