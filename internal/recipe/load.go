@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/pelletier/go-toml"
+	"github.com/BurntSushi/toml"
 )
 
 func Load(directory string) []*Recipe {
