@@ -1,0 +1,24 @@
+category = "Sauces and Seasonings"
+name = "Pizza Sauce"
+
+[[parts]]
+ingredients = [
+  ["Yellow Onion (diced)", "1"],
+  ["Garlic Clove (diced)", "3-5"],
+  ["Canned San Marzano Tomatoes", "28", "oz"],
+  ["Tomato Paste", "6", "oz"],
+  ["Dried Basil", "2", "tsp"],
+  ["Dried Oregano", "2", "tsp"],
+  ["Black Pepper (freshly ground)", "1", "tsp"],
+  ["Kosher Salt", "1", "tsp"]
+]
+
+steps = [
+  "Brown the onion in a skillet with olive oil",
+  "Add garlic and cook for a minute",
+  "Add full can of tomatoes, juice and all",
+  "Add tomato paste",
+  "Stir to mix tomato paste well",
+  "Add in all spices",
+  "Stir, cover, and simmer for 1-2 hours, stirring occassionally"
+]

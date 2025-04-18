@@ -1,0 +1,38 @@
+category = "Entrees"
+name = "Pork and Sausage Gravy"
+
+[[parts]]
+prep_time = 10
+cook_time = 135
+
+ingredients = [
+  ["Pork Roast (cubed)", "1", "lb"],
+  ["Sausage (sliced)", "1/2", "lb"],
+  ["Yellow Onion (finely chopped)", "1", "medium"],
+  ["Bell Pepper (finely chopped)", "1", "medium"],
+  ["Celery (stalks - finely chopped)", "2"],
+  ["Green Onion (chopped)", "1", "cup"],
+  ["Potato (cubed)", "3", "large"],
+  ["Cajun Seasoning", "1", "Tbsp"],
+  ["Kosher Salt", "1", "tsp"],
+  ["Black Pepper", "1", "tsp"],
+  ["Paprika", "1", "tsp"],
+  ["Dried Thyme", "1", "tsp"],
+  ["Better Than Boullion (Roasted Chicken)", "4", "tsp"],
+  ["Water", "4", "cup"]
+]
+
+steps = [
+  "Prepare vegetables and set aside",
+  "Brown the pork",
+  "Remove pork from pot and set aside",
+  "Brown white onion, bell pepper, and celery",
+  "Add some chicken stock to pot and deglaze",
+  "Add pork, sausage, green onion, and potatoes to the pot",
+  "Add remaining chicken stock until contents of pot are submerged (about 4 cups, add water to top it off if that is not enough chicken stock)",
+  "Add cajun seasoning, paprika, thyme to pot and bring to a boil",
+  "Once boiling, turn heat to low and cover",
+  "Cook for 1 1/2 to 2 hours on low, stirring frequently.",
+  "Salt and pepper to taste",
+  "Serve over rice"
+]

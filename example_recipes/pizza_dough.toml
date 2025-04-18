@@ -1,0 +1,20 @@
+category = "Bread"
+name = "Pizza Dough"
+source = "some url here"
+
+[[parts]]
+prep_time = 1440
+
+ingredients = [
+  ["All-Purpose Flour", "1000", "g"],
+  ["Fine Sea Salt", "4", "tsp"],
+  ["Active Dry Yeast", "1/2", "tsp"],
+  ["Water (warm)", "3", "cup"]
+]
+
+steps = [
+  "Combine and whisk dry ingredients in a large bowl.",
+  "Gradually add water and stir with wooden spoon until combined.",
+  "Cover and place in oven with light and heat off for 18-24 hours.",
+  "Transfer to a floured surface and divide into 6 equal portions.",
+]
