@@ -4,7 +4,7 @@ type Recipe struct {
 	CookbookCategory string `toml:"category"`
 	ID               string
 	Name             string       `toml:"name"`
-	Parts            []Part       `toml:"groups"`
+	Parts            []Part       `toml:"parts"`
 	Source           string       `toml:"source"`
 	Dependencies     []Dependency `toml:"dependencies"`
 }

@@ -10,17 +10,15 @@ These fields are declared at the top level of each TOML file:
 
 | Field                 | Type               | Required | Description |
 |----------------------|--------------------|----------|-------------|
-| `name`               | `string`           | y        | The recipe's display name. |
-| `cookbook_category`  | `string`           | n        | High-level cookbook grouping (e.g., `Entrees`, `Desserts`). |
-| `source`             | `string`           | n        | URL or book reference for the recipe. |
-| `tags`               | `array of strings` | n        | Arbitrary tags like `"chicken"`, `"quick"`, etc. |
-| `dependencies`       | `array of strings` | n        | Other recipes this one depends on (file names without extensions). |
+| `name`               | `string`                | y        | The recipe's display name. |
+| `cookbook_category`  | `string`                | n        | High-level cookbook grouping (e.g., `Entrees`, `Desserts`). |
+| `source`             | `string`                | n        | URL or book reference for the recipe. |
+| `tags`               | `array of strings`      | n        | Arbitrary tags like `"chicken"`, `"quick"`, etc. |
+| `dependencies`       | `array of dependencies` | n        | Other recipes this one depends on. |
 
 ---
 
 ## Parts
-
-Define parts using the `[parts.<name>]` table. If a recipe has a single part, use `[parts.default]`.
 
 | Field            | Type               | Required | Description |
 |------------------|--------------------|----------|-------------|
@@ -32,7 +30,7 @@ Define parts using the `[parts.<name>]` table. If a recipe has a single part, us
 
 ### Example:
 ```toml
-[parts.chicken]
+[[parts]]
 name = "Chicken"
 ingredients = [
   "2 8oz; Chicken Breast",
@@ -43,7 +41,7 @@ steps = [
   "Bake at 450°F for 12–15 minutes..."
 ]
 
-[parts.tortilla]
+[[parts]]
 cook_time = 10
 prep_time = 10
 name = "Tortilla"
@@ -53,5 +51,33 @@ ingredients = [
 ]
 steps = [
   "Combine ingredients...",
+]
+```
+
+---
+
+## Dependencies
+
+| Field            | Type               | Required | Description |
+|------------------|--------------------|----------|-------------|
+| `recipe_id`      | `string`           | y        | Filename of the dependency (without extension). |
+| `is_required`    | `bool`             | n        | If the dependency is a requirement for the recipe. Default false |
+
+### Example:
+```toml
+name = "Chicken Fried Steak"
+
+[[dependencies]]
+recipe_id = "white-pepper-gravy"
+is_required = true
+
+[[dependencies]]
+recipe_id = "homemade-bread-crumbs"
+
+```
+[[parts]]
+ingredients = [
+  "2; Cube Steak",
+  "Bread Crumbs",
 ]
 ```
