@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	"github.com/sanity-io/litter"
 )
 
 type config struct {
@@ -24,7 +25,11 @@ func main() {
 
 	recipes := recipe.Load(config.directory)
 	fmt.Printf("Loaded %d recipes", len(recipes))
-	fmt.Println()
+	for _, recipe := range recipes {
+		litter.Dump(recipe)
+		fmt.Println()
+		fmt.Println()
+	}
 	loadDates(config.startDate)
 }
 
