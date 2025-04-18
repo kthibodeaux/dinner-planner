@@ -29,6 +29,7 @@ type Ingredient struct {
 
 type Dependency struct {
 	RecipeID string `toml:"recipe_id"`
+	Replaces string `toml:"replaces,omitempty"`
 	Required bool   `toml:"required"`
 }
 
