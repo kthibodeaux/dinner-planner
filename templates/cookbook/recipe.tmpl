@@ -5,8 +5,8 @@
   <div>
     {{range .Parts}}
       <h3>{{if .Name}}{{.Name}}{{end}}</h3>
-      {{if .PrepTime}}Prep Time: {{.PrepTime}}<br />{{end}}
-      {{if .CookTime}}Cook Time: {{.CookTime}}<br />{{end}}
+      {{if .PrepTime}}Prep Time: {{.GetPrepTime}}<br />{{end}}
+      {{if .CookTime}}Cook Time: {{.GetCookTime}}<br />{{end}}
 
       {{if .Ingredients}}
         <ul>

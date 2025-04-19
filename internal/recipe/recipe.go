@@ -1,5 +1,7 @@
 package recipe
 
+import "fmt"
+
 type Recipe struct {
 	CookbookCategory string       `toml:"category"`
 	Dependencies     []Dependency `toml:"dependencies"`
@@ -32,4 +34,28 @@ type Dependency struct {
 	RecipeID string `toml:"recipe_id"`
 	Replaces string `toml:"replaces"`
 	Required bool   `toml:"required"`
+}
+
+func (part *Part) GetName() string {
+	if part.Name == "" {
+		return "Ingredients"
+	}
+
+	return part.Name
+}
+
+func (part *Part) GetPrepTime() string {
+	if part.PrepTime == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf("%d minutes", part.PrepTime)
+}
+
+func (part *Part) GetCookTime() string {
+	if part.CookTime == 0 {
+		return ""
+	}
+
+	return fmt.Sprintf("%d minutes", part.CookTime)
 }

@@ -1,0 +1,58 @@
+{{define "title"}}
+  {{.Name}}
+{{end}}
+{{define "body"}}
+<div class="content">
+  <div class="recipe">
+    <h1>{{.Name}}</h1>
+    {{range .Parts}}
+      <button class="toggle-btn" onclick="toggleGroup('{{.GetName}}')">
+        <span class="left">{{.GetName}}</span>
+        <span class="right">
+          {{if .GetPrepTime}}Prep Time: {{.GetPrepTime}}{{end}}
+          {{if and .PrepTime .CookTime}} - {{end}}
+          {{if .GetCookTime}}Cook Time: {{.GetCookTime}}{{end}}
+        </span>
+      </button>
+      <div id="{{.GetName}}" class="group">
+        {{if .Ingredients}}
+          <ul class="ingredients">
+            {{range .Ingredients}}
+              <li>
+                {{if .Quantity}} {{.Quantity}}{{end}}
+                {{if .Unit}} {{.Unit}}{{end}}
+                {{.Name}}
+              </li>
+            {{end}}
+          </ul>
+        {{end}}
+
+        {{if .Steps}}
+          <h2>Steps</h2>
+          <ol>
+            {{range .Steps}}
+              <li>{{.}}</li>
+            {{end}}
+          </ol>
+        {{end}}
+
+        {{if .Notes}}
+          <h2>Notes</h2>
+          <p>{{.Notes}}</p>
+        {{end}}
+      </div>
+    {{end}}
+  </div>
+</div>
+
+<script>
+  function toggleGroup(groupId) {
+    const group = document.getElementById(groupId);
+    if (group.style.display === "none") {
+      group.style.display = "block";
+    } else {
+      group.style.display = "none";
+    }
+  }
+</script>
+{{end}}

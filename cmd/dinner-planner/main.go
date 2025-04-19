@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	recipes := recipe.Load(config.directory)
-	recipes[3].ExportToCookbookHTML(recipes[3].ID + ".html")
+	recipes[3].ExportToWebsiteHTML(recipes[3].ID + ".html")
 	loadDates(config.startDate)
 }
 

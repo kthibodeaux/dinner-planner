@@ -24,3 +24,23 @@ func (recipe *Recipe) ExportToCookbookHTML(filename string) {
 		panic(err)
 	}
 }
+
+func (recipe *Recipe) ExportToWebsiteHTML(filename string) {
+	template, err := template.ParseFiles(
+		"templates/website/layout.tmpl",
+		"templates/website/recipe.tmpl",
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	outFile, err := os.Create(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer outFile.Close()
+
+	if err := template.Execute(outFile, recipe); err != nil {
+		panic(err)
+	}
+}
