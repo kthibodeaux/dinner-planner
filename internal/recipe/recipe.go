@@ -28,8 +28,9 @@ type Part struct {
 type IngredientList []Ingredient
 
 type Ingredient struct {
-	Name   string
-	Amount string
+	Name     string
+	Quantity string
+	Unit     string
 }
 
 type Dependency struct {

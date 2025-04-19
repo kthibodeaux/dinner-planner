@@ -20,7 +20,8 @@
           <ul class="ingredients">
             {{range .Ingredients}}
               <li>
-                {{if .Amount}} {{.Amount}}{{end}}
+                {{if .Quantity}} {{.Quantity}}{{end}}
+                {{if .Unit}} {{.Unit}}{{end}}
                 {{.Name}}
               </li>
             {{end}}

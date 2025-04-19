@@ -70,13 +70,15 @@ func (ingredientList *IngredientList) UnmarshalTOML(data any) error {
 		}
 
 		ingredient := Ingredient{}
-		if len(entry) == 2 {
-			ingredient.Amount = fmt.Sprint(entry[0])
+		if len(entry) == 3 {
+			ingredient.Quantity = fmt.Sprint(entry[0])
+			ingredient.Unit = fmt.Sprint(entry[1])
+			ingredient.Name = fmt.Sprint(entry[2])
+		} else if len(entry) == 2 {
+			ingredient.Quantity = fmt.Sprint(entry[0])
 			ingredient.Name = fmt.Sprint(entry[1])
 		} else if len(entry) == 1 {
 			ingredient.Name = fmt.Sprint(entry[0])
-		} else {
-			ingredient.Name = fmt.Sprint(entry)
 		}
 
 		*ingredientList = append(*ingredientList, ingredient)
