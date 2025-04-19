@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .page {
+      page-break-before: always;
+    }
+
+    body> .page:first-of-type {
+      page-break-before: avoid;
+    }
+
+    h1, h2 {
+      text-transform: capitalize;
+    }
+
+    h1, h2, h3 {
+      margin: 0px;
+    }
+
+    div {
+      width: 100%;
+    }
+
+    ul {
+      column-count: 2;
+      margin-bottom: 5px;
+      margin-top: 2px;
+      padding-left: 20px;
+    }
+
+    ol {
+      margin-bottom: 5px;
+      margin-top: 2px;
+      padding-left: 20px;
+    }
+
+    li {
+      column-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+    }
+
+    div.notes {
+      font-style: italic;
+      padding: 2px 0px 15px 0px;
+    }
+  </style>
+</head>
+<body>
+  {{template "body" .}}
+</body>
+</html>

@@ -2,14 +2,12 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"time"
 
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
-	"github.com/sanity-io/litter"
 )
 
 type config struct {
@@ -24,12 +22,7 @@ func main() {
 	flag.Parse()
 
 	recipes := recipe.Load(config.directory)
-	fmt.Printf("Loaded %d recipes", len(recipes))
-	for _, recipe := range recipes {
-		litter.Dump(recipe)
-		fmt.Println()
-		fmt.Println()
-	}
+	recipes[3].ExportToCookbookHTML(recipes[3].ID + ".html")
 	loadDates(config.startDate)
 }
 

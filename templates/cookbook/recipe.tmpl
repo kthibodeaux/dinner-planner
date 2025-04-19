@@ -1,0 +1,37 @@
+{{define "body"}}
+<div class="page">
+  <h2>{{.Name}}</h2>
+  <hr />
+  <div>
+    {{range .Parts}}
+      <h3>{{if .Name}}{{.Name}}{{end}}</h3>
+      {{if .PrepTime}}Prep Time: {{.PrepTime}}<br />{{end}}
+      {{if .CookTime}}Cook Time: {{.CookTime}}<br />{{end}}
+
+      {{if .Ingredients}}
+        <ul>
+          {{range .Ingredients}}
+            <li>
+              {{if .Quantity}} {{.Quantity}}{{end}}
+              {{if .Unit}} {{.Unit}}{{end}}
+              {{.Name}}
+            </li>
+          {{end}}
+        </ul>
+      {{end}}
+
+      {{if .Steps}}
+        <ol>
+          {{range .Steps}}
+            <li>{{.}}</li>
+          {{end}}
+        </ol>
+      {{end}}
+
+      {{if .Notes}}
+        <div class="notes">{{.Notes}}</div>
+      {{end}}
+    {{end}}
+  </div>
+</div>
+{{end}}
