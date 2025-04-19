@@ -6,20 +6,21 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	"github.com/kthibodeaux/dinner-planner/internal/web"
 )
 
 type config struct {
 	directory string
+	port      string
 }
 
 func main() {
 	var config config
 	flag.StringVar(&config.directory, "directory", defaultPath(), "Directory containing recipes")
+	flag.StringVar(&config.port, "port", ":8080", "Port to run the web server on")
 	flag.Parse()
 
-	recipes := recipe.Load(config.directory)
-	recipes[3].ExportToWebsiteHTML(recipes[3].ID + ".html")
+	web.Serve(config.directory, config.port)
 }
 
 func defaultPath() string {

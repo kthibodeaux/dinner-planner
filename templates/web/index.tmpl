@@ -1,0 +1,10 @@
+{{define "title"}}Recipes{{end}}
+{{define "body"}}
+<div class="content">
+  <div class="category-navigation">
+    {{range $slug, $category := .}}
+      <a href="/categories/{{$slug}}" class="category-link">{{$category}}</a>
+    {{end}}
+  </div>
+</div>
+{{end}}
