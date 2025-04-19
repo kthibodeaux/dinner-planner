@@ -2,6 +2,7 @@ package web
 
 import (
 	"net/http"
+	"sort"
 
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
@@ -18,6 +19,10 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 			categoryRecipes = append(categoryRecipes, recipe)
 		}
 	}
+
+	sort.Slice(categoryRecipes, func(i, j int) bool {
+		return categoryRecipes[i].Name < categoryRecipes[j].Name
+	})
 
 	data := struct {
 		Category string

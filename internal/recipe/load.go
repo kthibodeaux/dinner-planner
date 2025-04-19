@@ -21,6 +21,7 @@ func Load(directory string) []*Recipe {
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
+			fmt.Println("Loading recipe:", entry.Name())
 			recipe, err := parse(filepath.Join(directory, entry.Name()))
 			if err != nil {
 				log.Printf("Error loading recipe %s: %v", entry.Name(), err)
@@ -69,17 +70,13 @@ func (ingredientList *IngredientList) UnmarshalTOML(data any) error {
 		}
 
 		ingredient := Ingredient{}
-		switch len(entry) {
-		case 3:
-			ingredient.Unit = fmt.Sprint(entry[2])
-			fallthrough
-		case 2:
-			ingredient.Quantity = fmt.Sprint(entry[1])
-			fallthrough
-		case 1:
+		if len(entry) == 2 {
+			ingredient.Amount = fmt.Sprint(entry[0])
+			ingredient.Name = fmt.Sprint(entry[1])
+		} else if len(entry) == 1 {
 			ingredient.Name = fmt.Sprint(entry[0])
-		default:
-			return fmt.Errorf("invalid ingredient format: %v", entry)
+		} else {
+			ingredient.Name = fmt.Sprint(entry)
 		}
 
 		*ingredientList = append(*ingredientList, ingredient)
