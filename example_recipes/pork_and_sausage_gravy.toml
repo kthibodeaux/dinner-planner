@@ -6,20 +6,20 @@ prep_time = 10
 cook_time = 135
 
 ingredients = [
-  ["Pork Roast (cubed)", "1", "lb"],
-  ["Sausage (sliced)", "1/2", "lb"],
-  ["Yellow Onion (finely chopped)", "1", "medium"],
-  ["Bell Pepper (finely chopped)", "1", "medium"],
-  ["Celery (stalks - finely chopped)", "2"],
-  ["Green Onion (chopped)", "1", "cup"],
-  ["Potato (cubed)", "3", "large"],
-  ["Cajun Seasoning", "1", "Tbsp"],
-  ["Kosher Salt", "1", "tsp"],
-  ["Black Pepper", "1", "tsp"],
-  ["Paprika", "1", "tsp"],
-  ["Dried Thyme", "1", "tsp"],
-  ["Better Than Boullion (Roasted Chicken)", "4", "tsp"],
-  ["Water", "4", "cup"]
+  { name = "Pork Roast (cubed)", quantity = "1", unit = "lb" },
+  { name = "Sausage (sliced)", quantity = "1/2", unit = "lb" },
+  { name = "Yellow Onion (finely chopped)", quantity = "1", unit = "medium" },
+  { name = "Bell Pepper (finely chopped)", quantity = "1", unit = "medium" },
+  { name = "Celery (stalks - finely chopped)", unit = "2" },
+  { name = "Green Onion (chopped)", quantity = "1", unit = "cup" },
+  { name = "Potato (cubed)", quantity = "3", unit = "large" },
+  { name = "Cajun Seasoning", quantity = "1", unit = "Tbsp" },
+  { name = "Kosher Salt", quantity = "1", unit = "tsp" },
+  { name = "Black Pepper", quantity = "1", unit = "tsp" },
+  { name = "Paprika", quantity = "1", unit = "tsp" },
+  { name = "Dried Thyme", quantity = "1", unit = "tsp" },
+  { name = "Better Than Boullion (Roasted Chicken)", quantity = "4", unit = "tsp" },
+  { name = "Water", quantity = "4", unit = "cup" },
 ]
 
 steps = [

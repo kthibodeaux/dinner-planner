@@ -3,14 +3,14 @@ name = "Pizza Sauce"
 
 [[parts]]
 ingredients = [
-  ["Yellow Onion (diced)", "1"],
-  ["Garlic Clove (diced)", "3-5"],
-  ["Canned San Marzano Tomatoes", "28", "oz"],
-  ["Tomato Paste", "6", "oz"],
-  ["Dried Basil", "2", "tsp"],
-  ["Dried Oregano", "2", "tsp"],
-  ["Black Pepper (freshly ground)", "1", "tsp"],
-  ["Kosher Salt", "1", "tsp"]
+  { name = "Yellow Onion (diced)", unit = "1" },
+  { name = "Garlic Clove (diced)", unit = "3-5" },
+  { name = "Canned San Marzano Tomatoes", quantity = "28", unit = "oz" },
+  { name = "Tomato Paste", quantity = "6", unit = "oz" },
+  { name = "Dried Basil", quantity = "2", unit = "tsp" },
+  { name = "Dried Oregano", quantity = "2", unit = "tsp" },
+  { name = "Black Pepper (freshly ground)", quantity = "1", unit = "tsp" },
+  { name = "Kosher Salt", quantity = "1", unit = "tsp" },
 ]
 
 steps = [

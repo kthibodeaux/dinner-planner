@@ -6,10 +6,10 @@ source = "some url here"
 prep_time = 1440
 
 ingredients = [
-  ["All-Purpose Flour", "1000", "g"],
-  ["Fine Sea Salt", "4", "tsp"],
-  ["Active Dry Yeast", "1/2", "tsp"],
-  ["Water (warm)", "3", "cup"]
+  { name = "All-Purpose Flour", quantity = "1000", unit = "g" },
+  { name = "Fine Sea Salt", quantity = "4", unit = "tsp" },
+  { name = "Active Dry Yeast", quantity = "1/2", unit = "tsp" },
+  { name = "Water (warm)", quantity = "3", unit = "cup" },
 ]
 
 steps = [

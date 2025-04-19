@@ -7,8 +7,7 @@ import (
 )
 
 type Recipe struct {
-	CookbookCategory string       `toml:"category"`
-	Dependencies     []Dependency `toml:"dependencies"`
+	CookbookCategory string `toml:"category"`
 	ID               string
 	Name             string   `toml:"name"`
 	Notes            []string `toml:"notes"`
@@ -32,13 +31,7 @@ type Ingredient struct {
 	Quantity string `toml:"quantity"`
 	Unit     string `toml:"unit"`
 	Note     string `toml:"note"`
-}
-
-type Dependency struct {
-	Notes    []string `toml:"notes"`
-	RecipeID string   `toml:"recipe_id"`
-	Replaces string   `toml:"replaces"`
-	Required bool     `toml:"required"`
+	RecipeID string `toml:"recipe_id"`
 }
 
 func (recipe *Recipe) GetCategorySlug() string {

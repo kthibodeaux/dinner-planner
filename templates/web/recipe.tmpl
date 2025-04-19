@@ -22,7 +22,11 @@
               <li>
                 {{if .Quantity}} {{.Quantity}}{{end}}
                 {{if .Unit}} {{.Unit}}{{end}}
-                {{.Name}}
+                {{if .RecipeID}}
+                  <a href="/recipes/{{.RecipeID}}">{{.Name}}</a>
+                {{else}}
+                  {{.Name}}
+                {{end}}
                 {{if .Note}} ({{.Note}}){{end}}
               </li>
             {{end}}
