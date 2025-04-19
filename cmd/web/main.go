@@ -20,6 +20,7 @@ func main() {
 	flag.StringVar(&config.port, "port", ":8080", "Port to run the web server on")
 	flag.Parse()
 
+	log.Printf("Serving recipes from %s on port %s", config.directory, config.port)
 	web.Serve(config.directory, config.port)
 }
 
