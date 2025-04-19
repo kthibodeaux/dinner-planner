@@ -1,0 +1,61 @@
+name = "Butter Chicken"
+category = "Entrees"
+include_in_cookbook = true
+source = "https://www.youtube.com/watch?v=ESqF6CW91UQ"
+
+[[parts]]
+name = "Chicken"
+ingredients = [
+  ["boneless/skinless chicken thighs", "2", "lbs"],
+  ["kosher salt","1","Tbsp"],
+  ["garlic (minced)", "3", "cloves"],
+  ["minced ginger","2", "Tbsp"],
+  ["lemon juice", "1/2", "Tbsp"],
+  ["garam masala", "1", "tsp"],
+  ["paprika", "1", "Tbsp"],
+  ["greek yogurt", "3/4", "cup"],
+  ["canola oil", "25", "g"],
+]
+
+steps = [
+  "Combine and marinade for a half hour.",
+  "Preheat over to 450F and bake until internal temp is 165F.",
+  "Broil with each side facing up until a little charred.",
+]
+
+[[parts]]
+name = "Sauce"
+
+ingredients = [
+  ["extra virgin olive oil"],
+  ["white onion (diced)", "1", "small"],
+  ["pablano pepper (diced)", "1", "small"],
+  ["white onion", "1", "small"],
+  ["kosher salt", "large pinch"],
+  ["Minced Ginger", "2", "Tbsp"],
+  ["Minced Garlic", "3", "cloves"],
+  ["garam masala", "1", "Tbsp"],
+  ["turmeric", "1", "Tbsp"],
+  ["cumin", "1", "Tbsp"],
+  ["coriander", "1", "Tbsp"],
+  ["paprika", "1", "Tbsp"],
+  ["kosher salt", "2", "tsp"],
+  ["tomato paste", "6", "oz"],
+  ["water", "1", "3/4 cup"],
+  ["sugar", "2", "tsp"],
+  ["coconut milk", "1", "cup"],
+  ["vegan butter", "3", "Tbsp"],
+]
+
+steps = [
+  "Do things!",
+]
+
+[[parts]]
+name = "Garnish"
+
+ingredients = [
+  ["greek yogurt", "1/2", "cup"],
+  ["coconut milk", "1/2", "cup"],
+  ["salt", "1/2", "tsp"],
+]

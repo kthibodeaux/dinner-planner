@@ -1,6 +1,10 @@
 package recipe
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/kthibodeaux/dinner-planner/internal/utils"
+)
 
 type Recipe struct {
 	CookbookCategory string       `toml:"category"`
@@ -34,6 +38,10 @@ type Dependency struct {
 	RecipeID string `toml:"recipe_id"`
 	Replaces string `toml:"replaces"`
 	Required bool   `toml:"required"`
+}
+
+func (recipe *Recipe) GetCategorySlug() string {
+	return utils.Slugify(recipe.CookbookCategory)
 }
 
 func (part *Part) GetName() string {

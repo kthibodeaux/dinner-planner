@@ -5,6 +5,7 @@
 <div class="content">
   <div class="recipe">
     <h1>{{.Name}}</h1>
+    <h2><a href="/categories/{{.GetCategorySlug}}">Back to {{.CookbookCategory}}</a></h2>
     {{range .Parts}}
       <button class="toggle-btn" onclick="toggleGroup('{{.GetName}}')">
         <span class="left">{{.GetName}}</span>
