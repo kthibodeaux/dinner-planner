@@ -27,8 +27,8 @@ func (recipe *Recipe) ExportToCookbookHTML(filename string) {
 
 func (recipe *Recipe) ExportToWebsiteHTML(filename string) {
 	template, err := template.ParseFiles(
-		"templates/website/layout.tmpl",
-		"templates/website/recipe.tmpl",
+		"templates/web/layout.tmpl",
+		"templates/web/recipe.tmpl",
 	)
 	if err != nil {
 		panic(err)
