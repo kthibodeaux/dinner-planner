@@ -17,20 +17,21 @@ type Recipe struct {
 }
 
 type Part struct {
-	CookTime    int            `toml:"cook_time"`
-	Ingredients IngredientList `toml:"ingredients"`
-	Name        string         `toml:"name"`
-	Notes       []string       `toml:"notes"`
-	PrepTime    int            `toml:"prep_time"`
-	Steps       []string       `toml:"steps"`
+	CookTime    int          `toml:"cook_time"`
+	Ingredients []Ingredient `toml:"ingredients"`
+	Name        string       `toml:"name"`
+	Notes       []string     `toml:"notes"`
+	PrepTime    int          `toml:"prep_time"`
+	Steps       []string     `toml:"steps"`
 }
 
 type IngredientList []Ingredient
 
 type Ingredient struct {
-	Name     string
-	Quantity string
-	Unit     string
+	Name     string `toml:"name"`
+	Quantity string `toml:"quantity"`
+	Unit     string `toml:"unit"`
+	Note     string `toml:"note"`
 }
 
 type Dependency struct {

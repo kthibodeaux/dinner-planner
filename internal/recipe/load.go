@@ -56,32 +56,3 @@ func parse(filePath string) (*Recipe, error) {
 
 	return &recipe, nil
 }
-
-func (ingredientList *IngredientList) UnmarshalTOML(data any) error {
-	list, ok := data.([]any)
-	if !ok {
-		return fmt.Errorf("expected list of ingredients, got %T", data)
-	}
-
-	for _, item := range list {
-		entry, ok := item.([]any)
-		if !ok {
-			return fmt.Errorf("expected ingredient entry to be a list, got %T", item)
-		}
-
-		ingredient := Ingredient{}
-		if len(entry) == 3 {
-			ingredient.Quantity = fmt.Sprint(entry[0])
-			ingredient.Unit = fmt.Sprint(entry[1])
-			ingredient.Name = fmt.Sprint(entry[2])
-		} else if len(entry) == 2 {
-			ingredient.Quantity = fmt.Sprint(entry[0])
-			ingredient.Name = fmt.Sprint(entry[1])
-		} else if len(entry) == 1 {
-			ingredient.Name = fmt.Sprint(entry[0])
-		}
-
-		*ingredientList = append(*ingredientList, ingredient)
-	}
-	return nil
-}
