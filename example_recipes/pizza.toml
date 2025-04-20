@@ -6,13 +6,28 @@ ingredients = [
   { name = "Pizza Sauce", quantity = "4", unit = "cup", recipe_id = "pizza_sauce" },
   { name = "Pizza Dough", recipe_id = "pizza_dough" },
   { name = "Pepperoni", quantity = "1", unit = "cup" },
+  { name = "Salami", quantity = "1", unit = "cup" },
+  { name = "Ham", quantity = "1/4", unit = "lb" },
+  { name = "Pineapple Tidbits", quantity = "1", unit = "can" },
   { name = "Bell Peppers (sliced)", quantity = "1", unit = "cup" },
   { name = "Onion (sliced)", quantity = "1", unit = "cup" },
   { name = "Swiss Cheese (shredded)", quantity = "4", unit = "cup" },
   { name = "Parmesan Cheese (grated)", quantity = "1/2", unit = "cup" },
 ]
 
+[[parts]]
+name = "Normal Crust"
+
 steps = [
   "Preheat oven to max",
   "Assemble pizza with sauce, cheese, and toppings and bake 8-10 minutes.",
+]
+
+[[parts]]
+name = "Deep Dish"
+
+steps = [
+  "Preheat oven to 450F",
+  "Use double the amount of dough as Normal Crust",
+  "Assemble pizza with sauce, cheese, and toppings and bake 30 minutes.",
 ]
