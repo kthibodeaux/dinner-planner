@@ -24,8 +24,6 @@ type Part struct {
 	Steps       []string     `toml:"steps"`
 }
 
-type IngredientList []Ingredient
-
 type Ingredient struct {
 	Name     string `toml:"name"`
 	Quantity string `toml:"quantity"`
