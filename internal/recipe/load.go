@@ -1,7 +1,6 @@
 package recipe
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -21,7 +20,7 @@ func Load(directory string) []*Recipe {
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
-			fmt.Println("Loading recipe:", entry.Name())
+			// fmt.Println("Loading recipe:", entry.Name())
 			recipe, err := parse(filepath.Join(directory, entry.Name()))
 			if err != nil {
 				log.Printf("Error loading recipe %s: %v", entry.Name(), err)
