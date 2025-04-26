@@ -1,47 +1,23 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
-	"os"
-	"path/filepath"
 	"time"
 
+	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
 
-type config struct {
-	directory string
-	startDate string
-}
-
 func main() {
-	var config config
-	flag.StringVar(&config.directory, "directory", defaultPath(), "Directory containing recipes")
-	flag.StringVar(&config.startDate, "startdate", sunday(time.Now()), "Start date in yyyy-mm-dd format (defaults to current week's Sunday)")
-	flag.Parse()
+	config := config.LoadConfig()
 
-	recipes := recipe.Load(config.directory)
+	recipes := recipe.Load(config.RecipeDirectory)
 	fmt.Printf("Loaded %d recipes", len(recipes))
 	fmt.Println()
-	loadDates(config.startDate)
-}
+	dates := loadDates(config.StartDate)
 
-func defaultPath() string {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return filepath.Join(home, "recipes")
-}
-
-func sunday(currentDate time.Time) string {
-	offset := int(currentDate.Weekday())
-	date := currentDate.AddDate(0, 0, -offset)
-
-	return date.Format("2006-01-02")
+	fmt.Println("Dates:", dates)
 }
 
 func loadDates(startDate string) []time.Time {

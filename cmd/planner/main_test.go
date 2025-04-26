@@ -2,33 +2,7 @@ package main
 
 import (
 	"testing"
-	"time"
 )
-
-func TestSunday(t *testing.T) {
-	layout := "2006-01-02"
-
-	currentDate, _ := time.Parse(layout, "2025-04-15")
-	result := sunday(currentDate)
-	expected := "2025-04-13"
-	if result != expected {
-		t.Errorf("Expected %s, got %s", expected, result)
-	}
-
-	currentDate, _ = time.Parse(layout, "2025-04-13")
-	result = sunday(currentDate)
-	expected = "2025-04-13"
-	if result != expected {
-		t.Errorf("Expected %s, got %s", expected, result)
-	}
-
-	currentDate, _ = time.Parse(layout, "2025-04-12")
-	result = sunday(currentDate)
-	expected = "2025-04-06"
-	if result != expected {
-		t.Errorf("Expected %s, got %s", expected, result)
-	}
-}
 
 func TestLoadDates(t *testing.T) {
 	startDate := "2025-04-13"
