@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
+	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
 func Load(directory string) []*Recipe {
@@ -20,7 +21,6 @@ func Load(directory string) []*Recipe {
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
-			// fmt.Println("Loading recipe:", entry.Name())
 			recipe, err := parse(filepath.Join(directory, entry.Name()))
 			if err != nil {
 				log.Printf("Error loading recipe %s: %v", entry.Name(), err)
@@ -52,6 +52,8 @@ func parse(filePath string) (*Recipe, error) {
 	if err != nil {
 		panic(err)
 	}
+
+	recipe.CategoryID = utils.Slugify(recipe.CookbookCategory)
 
 	return &recipe, nil
 }
