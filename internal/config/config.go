@@ -24,6 +24,7 @@ type KeyConfig struct {
 }
 
 type PlannerConfig struct {
+	Color          string `toml:"color"`
 	FirstDayOfWeek string `toml:"first_day_of_week"`
 }
 
@@ -76,6 +77,9 @@ func LoadConfig() *config {
 		config.Web.Port = flagWebPort
 	}
 
+	if config.Planner.Color == "" {
+		config.Planner.Color = "#248721"
+	}
 	if config.Planner.FirstDayOfWeek == "" {
 		config.Planner.FirstDayOfWeek = "sunday"
 	}

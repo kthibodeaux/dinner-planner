@@ -11,11 +11,13 @@ import (
 )
 
 type dinnerPlan struct {
+	color   *string
 	keys    *config.KeyConfig
 	recipes []*recipe.Recipe
 	dates   []time.Time
 
-	size Size
+	focusIndex int
+	size       Size
 }
 
 type Size struct {
@@ -32,6 +34,7 @@ func main() {
 
 	p := tea.NewProgram(
 		dinnerPlan{
+			color:   &config.Planner.Color,
 			keys:    &config.Keys,
 			recipes: recipe.Load(config.RecipeDirectory),
 			dates:   utils.DatesForWeekStartingOn(config.StartDate),

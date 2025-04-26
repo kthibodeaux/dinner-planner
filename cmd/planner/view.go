@@ -6,11 +6,6 @@ import (
 
 var (
 	borderSize = 1
-
-	paneBorder = lipgloss.NewStyle().
-			Border(lipgloss.NormalBorder())
-
-	pane = lipgloss.NewStyle()
 )
 
 func (dp dinnerPlan) View() string {
@@ -28,12 +23,23 @@ func (dp dinnerPlan) View() string {
 	)
 }
 
+func (dp *dinnerPlan) paneBorder(index int) lipgloss.Style {
+	if index == dp.focusIndex {
+		return lipgloss.NewStyle().
+			Border(lipgloss.ThickBorder()).
+			BorderForeground(lipgloss.Color(*dp.color))
+	} else {
+		return lipgloss.NewStyle().
+			Border(lipgloss.ThickBorder())
+	}
+}
+
 func (dp *dinnerPlan) recipeColumn(size Size, gap int) string {
-	return paneBorder.
+	return dp.paneBorder(0).
 		Width(size.width).
 		Height(size.height).
 		MarginRight(gap).
-		Render("")
+		Render("# Recipes")
 }
 
 func (dp *dinnerPlan) dayColumns(size Size) string {
@@ -69,8 +75,8 @@ func (dp *dinnerPlan) daysRightColumn(size Size) string {
 func (dp *dinnerPlan) dayPane(size Size, index int) string {
 	dayPaneHeight := (dp.size.height / 4) - (borderSize * 2)
 
-	return paneBorder.
+	return dp.paneBorder(index + 1).
 		Width(size.width).
 		Height(dayPaneHeight).
-		Render(dp.dates[index].Format("Monday, January 2"))
+		Render(dp.dates[index].Format("# Monday, January 2"))
 }

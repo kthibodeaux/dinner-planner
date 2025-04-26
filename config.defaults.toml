@@ -1,6 +1,7 @@
 recipes = "~/recipes"
 
 [planner]
+color = "#248721"
 first_day_of_week = "sunday"
 
 [web]

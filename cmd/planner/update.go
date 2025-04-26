@@ -8,6 +8,8 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case dp.keys.Quit:
 			return dp.Quit()
+		case "0", "1", "2", "3", "4", "5", "6", "7":
+			dp.focusIndex = int(msg.Runes[0] - '0')
 		}
 	case tea.WindowSizeMsg:
 		dp.size.width = msg.Width
