@@ -12,15 +12,23 @@ import (
 )
 
 type config struct {
-	FirstDayOfWeek  string    `toml:"first_day_of_week"`
-	Keys            KeyConfig `toml:"keys"`
-	RecipeDirectory string    `toml:"recipes"`
+	Keys            KeyConfig     `toml:"keys"`
+	Planner         PlannerConfig `toml:"planner"`
+	RecipeDirectory string        `toml:"recipes"`
 	StartDate       string
-	WebPort         string `toml:"web_port"`
+	Web             WebConfig `toml:"web"`
 }
 
 type KeyConfig struct {
 	Quit string `toml:"quit"`
+}
+
+type PlannerConfig struct {
+	FirstDayOfWeek string `toml:"first_day_of_week"`
+}
+
+type WebConfig struct {
+	Port string `toml:"port"`
 }
 
 var (
@@ -31,7 +39,7 @@ var (
 )
 
 const (
-	defaultWebPort = "9191"
+	defaultWebPort = "8080"
 )
 
 func LoadConfig() *config {
@@ -65,24 +73,24 @@ func LoadConfig() *config {
 		config.StartDate = flagStartDate
 	}
 	if flagWebPort != "" {
-		config.WebPort = flagWebPort
+		config.Web.Port = flagWebPort
 	}
 
-	if config.FirstDayOfWeek == "" {
-		config.FirstDayOfWeek = "sunday"
+	if config.Planner.FirstDayOfWeek == "" {
+		config.Planner.FirstDayOfWeek = "sunday"
 	}
 	if config.RecipeDirectory == "" {
 		config.RecipeDirectory = expandHome("~/recipes")
 	}
 	if config.StartDate == "" {
-		config.StartDate = startOfWeek(time.Now(), config.FirstDayOfWeek)
+		config.StartDate = startOfWeek(time.Now(), config.Planner.FirstDayOfWeek)
 	}
-	if config.WebPort == "" {
-		config.WebPort = defaultWebPort
+	if config.Web.Port == "" {
+		config.Web.Port = defaultWebPort
 	}
 
-	if config.WebPort[0] != ':' {
-		config.WebPort = ":" + config.WebPort
+	if config.Web.Port[0] != ':' {
+		config.Web.Port = ":" + config.Web.Port
 	}
 
 	if config.Keys.Quit == "" {

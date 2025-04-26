@@ -12,5 +12,5 @@ func main() {
 
 	log.Println("Recipes:", config.RecipeDirectory)
 
-	web.Serve(config.RecipeDirectory, config.WebPort)
+	web.Serve(config.RecipeDirectory, config.Web.Port)
 }

@@ -1,6 +1,10 @@
-first_day_of_week = "sunday"
 recipes = "~/recipes"
-web_port = "8080"
+
+[planner]
+first_day_of_week = "sunday"
+
+[web]
+port = "8080"
 
 [keys]
 quit = "ctrl+c"
