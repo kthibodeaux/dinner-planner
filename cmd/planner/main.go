@@ -14,6 +14,13 @@ type dinnerPlan struct {
 	keys    *config.KeyConfig
 	recipes []*recipe.Recipe
 	dates   []time.Time
+
+	size Size
+}
+
+type Size struct {
+	width  int
+	height int
 }
 
 func (dp dinnerPlan) Init() tea.Cmd {

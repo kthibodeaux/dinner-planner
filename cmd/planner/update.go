@@ -3,13 +3,17 @@ package main
 import tea "github.com/charmbracelet/bubbletea"
 
 func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	switch msg.(type) {
+	switch msg := msg.(type) {
 	case tea.KeyMsg:
-		switch msg.(tea.KeyMsg).String() {
+		switch msg.String() {
 		case dp.keys.Quit:
 			return dp.Quit()
 		}
+	case tea.WindowSizeMsg:
+		dp.size.width = msg.Width
+		dp.size.height = msg.Height
 	}
+
 	return dp, nil
 }
 
