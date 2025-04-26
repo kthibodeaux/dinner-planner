@@ -12,10 +12,15 @@ import (
 )
 
 type config struct {
-	FirstDayOfWeek  string `toml:"first_day_of_week"`
-	RecipeDirectory string `toml:"recipes"`
+	FirstDayOfWeek  string    `toml:"first_day_of_week"`
+	Keys            KeyConfig `toml:"keys"`
+	RecipeDirectory string    `toml:"recipes"`
 	StartDate       string
 	WebPort         string `toml:"web_port"`
+}
+
+type KeyConfig struct {
+	Quit string `toml:"quit"`
 }
 
 var (
@@ -78,6 +83,10 @@ func LoadConfig() *config {
 
 	if config.WebPort[0] != ':' {
 		config.WebPort = ":" + config.WebPort
+	}
+
+	if config.Keys.Quit == "" {
+		config.Keys.Quit = "ctrl+c"
 	}
 
 	return config
