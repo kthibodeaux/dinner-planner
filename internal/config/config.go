@@ -28,14 +28,14 @@ type KeyConfig struct {
 	MainView string `toml:"main_view"`
 	Focus    string `toml:"focus"`
 	Help     string `toml:"help"`
-	Recipes  string `toml:"focus_recipes"`
-	Day1     string `toml:"focus_day_1"`
-	Day2     string `toml:"focus_day_2"`
-	Day3     string `toml:"focus_day_3"`
-	Day4     string `toml:"focus_day_4"`
-	Day5     string `toml:"focus_day_5"`
-	Day6     string `toml:"focus_day_6"`
-	Day7     string `toml:"focus_day_7"`
+	Recipes  string `toml:"recipes"`
+	Day1     string `toml:"day_1"`
+	Day2     string `toml:"day_2"`
+	Day3     string `toml:"day_3"`
+	Day4     string `toml:"day_4"`
+	Day5     string `toml:"day_5"`
+	Day6     string `toml:"day_6"`
+	Day7     string `toml:"day_7"`
 	Quit     string `toml:"quit"`
 }
 
