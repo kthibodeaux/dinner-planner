@@ -1,16 +1,32 @@
 package main
 
 import (
+	"log"
+	"time"
+
 	"github.com/kthibodeaux/dinner-planner/internal/config"
+	"github.com/kthibodeaux/dinner-planner/internal/planner"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
-	"github.com/kthibodeaux/dinner-planner/internal/tui"
-	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
 func main() {
 	config := config.LoadConfig()
 	recipes := recipe.Load(config.RecipeDirectory)
-	dates := utils.DatesForWeekStartingOn(config.StartDate)
+	dates := datesForWeekStartingOn(config.StartDate)
 
-	tui.Run(config, recipes, dates)
+	planner.Run(config, recipes, dates)
+}
+
+func datesForWeekStartingOn(startDate string) []time.Time {
+	date, err := time.Parse("2006-01-02", startDate)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dates := make([]time.Time, 7)
+	for i := range 7 {
+		dates[i] = date.AddDate(0, 0, i)
+	}
+
+	return dates
 }
