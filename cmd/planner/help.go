@@ -6,9 +6,9 @@ func (dp *dinnerPlan) viewHelp() string {
 	width := 30
 	height := 20
 
-	title := dp.styleSelected().Render("Help")
+	title := dp.styleSelected(true).Render("Help")
 	subtitle := dp.keys.MainView + " to close"
-	keyBindings := dp.styleSelected().Render("Key Bindings")
+	keyBindings := dp.styleSelected(true).Render("Key Bindings")
 
 	header := lipgloss.NewStyle().
 		Align(lipgloss.Center).

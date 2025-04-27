@@ -4,11 +4,6 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-var (
-	borderForce = -1
-	borderSize  = 1
-)
-
 func (dp dinnerPlan) View() string {
 	if dp.mode == ModeHelp {
 		return dp.viewHelp()
@@ -27,29 +22,12 @@ func (dp dinnerPlan) View() string {
 	}
 }
 
-func (dp *dinnerPlan) paneBorder(index int) lipgloss.Style {
-	if index == dp.focusIndex || index == borderForce {
-		return lipgloss.NewStyle().
-			Border(lipgloss.ThickBorder()).
-			BorderForeground(lipgloss.Color(*dp.color))
-	} else {
-		return lipgloss.NewStyle().
-			Border(lipgloss.ThickBorder())
-	}
-}
-
-func (dp *dinnerPlan) styleSelected() lipgloss.Style {
-	return lipgloss.NewStyle().
-		Foreground(lipgloss.Color(*dp.color)).
-		Bold(true)
-}
-
 func (dp *dinnerPlan) recipeColumn(size Size, gap int) string {
 	return dp.paneBorder(0).
 		Width(size.width).
 		Height(size.height).
 		MarginRight(gap).
-		Render("# Recipes")
+		Render(dp.paneHeader(dp.keys.Recipes, "Recipes"))
 }
 
 func (dp *dinnerPlan) dayColumns(size Size) string {
@@ -88,5 +66,5 @@ func (dp *dinnerPlan) dayPane(size Size, index int) string {
 	return dp.paneBorder(index + 1).
 		Width(size.width).
 		Height(dayPaneHeight).
-		Render(dp.dates[index].Format("# Monday, January 2"))
+		Render(dp.paneHeader(dp.dayKeyMap[index], dp.dates[index].Format("Monday, January 2")))
 }

@@ -199,3 +199,15 @@ func startOfWeek(currentDate time.Time, weekdayName string) string {
 
 	return date.Format("2006-01-02")
 }
+
+func (c *config) DayKeyMap() map[int]string {
+	return map[int]string{
+		0: c.Planner.Keys.Day1,
+		1: c.Planner.Keys.Day2,
+		2: c.Planner.Keys.Day3,
+		3: c.Planner.Keys.Day4,
+		4: c.Planner.Keys.Day5,
+		5: c.Planner.Keys.Day6,
+		6: c.Planner.Keys.Day7,
+	}
+}

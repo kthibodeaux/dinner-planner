@@ -19,10 +19,11 @@ const (
 )
 
 type dinnerPlan struct {
-	color   *string
-	keys    *config.KeyConfig
-	recipes []*recipe.Recipe
-	dates   []time.Time
+	color     *string
+	dayKeyMap map[int]string
+	keys      *config.KeyConfig
+	recipes   []*recipe.Recipe
+	dates     []time.Time
 
 	focusIndex int
 	mode       Mode
@@ -43,11 +44,12 @@ func main() {
 
 	p := tea.NewProgram(
 		dinnerPlan{
-			color:   &config.Planner.Color,
-			keys:    &config.Planner.Keys,
-			recipes: recipe.Load(config.RecipeDirectory),
-			dates:   utils.DatesForWeekStartingOn(config.StartDate),
-			mode:    ModeAssign,
+			color:     &config.Planner.Color,
+			dayKeyMap: config.DayKeyMap(),
+			keys:      &config.Planner.Keys,
+			recipes:   recipe.Load(config.RecipeDirectory),
+			dates:     utils.DatesForWeekStartingOn(config.StartDate),
+			mode:      ModeAssign,
 		},
 	)
 	p.Run()
