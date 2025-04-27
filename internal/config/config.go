@@ -11,7 +11,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-type config struct {
+type Config struct {
 	Planner         PlannerConfig `toml:"planner"`
 	RecipeDirectory string        `toml:"recipes"`
 	StartDate       string
@@ -54,7 +54,7 @@ const (
 	defaultWebPort = "8080"
 )
 
-func LoadConfig() *config {
+func LoadConfig() *Config {
 	flag.StringVar(&flagConfigFilePath, "config-file", defaultConfigFilePath(), "Path to the configuration file")
 	flag.StringVar(&flagRecipeDirectory, "recipes", "", "Path to the recipes")
 	flag.StringVar(&flagStartDate, "date", "", "Start date for the week")
@@ -62,7 +62,7 @@ func LoadConfig() *config {
 
 	flag.Parse()
 
-	config := &config{}
+	config := &Config{}
 	if fileExists(flagConfigFilePath) {
 		log.Println("Loading config file:", flagConfigFilePath)
 		data, err := os.ReadFile(flagConfigFilePath)
@@ -200,7 +200,7 @@ func startOfWeek(currentDate time.Time, weekdayName string) string {
 	return date.Format("2006-01-02")
 }
 
-func (c *config) DayKeyMap() map[int]string {
+func (c *Config) DayKeyMap() map[int]string {
 	return map[int]string{
 		0: c.Planner.Keys.Day1,
 		1: c.Planner.Keys.Day2,

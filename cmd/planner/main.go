@@ -1,56 +1,16 @@
 package main
 
 import (
-	"time"
-
-	tea "github.com/charmbracelet/bubbletea"
-
 	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	"github.com/kthibodeaux/dinner-planner/internal/tui"
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
-type Mode int
-
-const (
-	ModeAssign Mode = iota
-	ModeHelp
-	ModeNavigatePane
-)
-
-type dinnerPlan struct {
-	color     *string
-	dayKeyMap map[int]string
-	keys      *config.KeyConfig
-	recipes   []*recipe.Recipe
-	dates     []time.Time
-
-	focusIndex int
-	mode       Mode
-	size       Size
-}
-
-type Size struct {
-	width  int
-	height int
-}
-
-func (dp dinnerPlan) Init() tea.Cmd {
-	return nil
-}
-
 func main() {
 	config := config.LoadConfig()
+	recipes := recipe.Load(config.RecipeDirectory)
+	dates := utils.DatesForWeekStartingOn(config.StartDate)
 
-	p := tea.NewProgram(
-		dinnerPlan{
-			color:     &config.Planner.Color,
-			dayKeyMap: config.DayKeyMap(),
-			keys:      &config.Planner.Keys,
-			recipes:   recipe.Load(config.RecipeDirectory),
-			dates:     utils.DatesForWeekStartingOn(config.StartDate),
-			mode:      ModeAssign,
-		},
-	)
-	p.Run()
+	tui.Run(config, recipes, dates)
 }
