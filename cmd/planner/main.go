@@ -35,7 +35,7 @@ func main() {
 	p := tea.NewProgram(
 		dinnerPlan{
 			color:   &config.Planner.Color,
-			keys:    &config.Keys,
+			keys:    &config.Planner.Keys,
 			recipes: recipe.Load(config.RecipeDirectory),
 			dates:   utils.DatesForWeekStartingOn(config.StartDate),
 		},

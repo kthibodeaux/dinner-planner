@@ -12,20 +12,20 @@ import (
 )
 
 type config struct {
-	Keys            KeyConfig     `toml:"keys"`
 	Planner         PlannerConfig `toml:"planner"`
 	RecipeDirectory string        `toml:"recipes"`
 	StartDate       string
 	Web             WebConfig `toml:"web"`
 }
 
-type KeyConfig struct {
-	Quit string `toml:"quit"`
+type PlannerConfig struct {
+	Color          string    `toml:"color"`
+	FirstDayOfWeek string    `toml:"first_day_of_week"`
+	Keys           KeyConfig `toml:"keys"`
 }
 
-type PlannerConfig struct {
-	Color          string `toml:"color"`
-	FirstDayOfWeek string `toml:"first_day_of_week"`
+type KeyConfig struct {
+	Quit string `toml:"quit"`
 }
 
 type WebConfig struct {
@@ -97,8 +97,8 @@ func LoadConfig() *config {
 		config.Web.Port = ":" + config.Web.Port
 	}
 
-	if config.Keys.Quit == "" {
-		config.Keys.Quit = "ctrl+c"
+	if config.Planner.Keys.Quit == "" {
+		config.Planner.Keys.Quit = "ctrl+c"
 	}
 
 	return config
