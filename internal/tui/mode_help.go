@@ -2,7 +2,7 @@ package tui
 
 import "github.com/charmbracelet/lipgloss"
 
-func (dp *dinnerPlan) viewHelp() string {
+func (dp *dinnerPlan) viewModeHelp() string {
 	width := 30
 	height := 20
 

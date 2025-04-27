@@ -38,6 +38,14 @@ func (dp dinnerPlan) Init() tea.Cmd {
 	return nil
 }
 
+func (dp dinnerPlan) View() string {
+	if dp.mode == ModeHelp {
+		return dp.viewModeHelp()
+	} else {
+		return dp.viewModeAssign()
+	}
+}
+
 func Run(config *config.Config, recipes []*recipe.Recipe, dates []time.Time) {
 	p := tea.NewProgram(
 		dinnerPlan{
