@@ -9,3 +9,11 @@ first_day_of_week = "sunday"
 
 [planner.keys]
 quit = "ctrl+c"
+focus_recipes = "0"
+focus_day_1 = "1"
+focus_day_2 = "2"
+focus_day_3 = "3"
+focus_day_4 = "4"
+focus_day_5 = "5"
+focus_day_6 = "6"
+focus_day_7 = "7"

@@ -25,7 +25,15 @@ type PlannerConfig struct {
 }
 
 type KeyConfig struct {
-	Quit string `toml:"quit"`
+	FocusRecipes string `toml:"focus_recipes"`
+	FocusDay1    string `toml:"focus_day_1"`
+	FocusDay2    string `toml:"focus_day_2"`
+	FocusDay3    string `toml:"focus_day_3"`
+	FocusDay4    string `toml:"focus_day_4"`
+	FocusDay5    string `toml:"focus_day_5"`
+	FocusDay6    string `toml:"focus_day_6"`
+	FocusDay7    string `toml:"focus_day_7"`
+	Quit         string `toml:"quit"`
 }
 
 type WebConfig struct {
@@ -99,6 +107,30 @@ func LoadConfig() *config {
 
 	if config.Planner.Keys.Quit == "" {
 		config.Planner.Keys.Quit = "ctrl+c"
+	}
+	if config.Planner.Keys.FocusRecipes == "" {
+		config.Planner.Keys.FocusRecipes = "0"
+	}
+	if config.Planner.Keys.FocusDay1 == "" {
+		config.Planner.Keys.FocusDay1 = "1"
+	}
+	if config.Planner.Keys.FocusDay2 == "" {
+		config.Planner.Keys.FocusDay2 = "2"
+	}
+	if config.Planner.Keys.FocusDay3 == "" {
+		config.Planner.Keys.FocusDay3 = "3"
+	}
+	if config.Planner.Keys.FocusDay4 == "" {
+		config.Planner.Keys.FocusDay4 = "4"
+	}
+	if config.Planner.Keys.FocusDay5 == "" {
+		config.Planner.Keys.FocusDay5 = "5"
+	}
+	if config.Planner.Keys.FocusDay6 == "" {
+		config.Planner.Keys.FocusDay6 = "6"
+	}
+	if config.Planner.Keys.FocusDay7 == "" {
+		config.Planner.Keys.FocusDay7 = "7"
 	}
 
 	return config
