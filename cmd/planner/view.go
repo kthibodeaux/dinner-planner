@@ -10,10 +10,10 @@ func (dp dinnerPlan) View() string {
 	} else {
 		unit := dp.size.width / 10
 		gap := dp.size.width - (unit * 10)
-
 		recipeColumnWidth := (unit * 6) - (borderSize * 2)
 		daysColumnsWidth := (unit * 4) - (borderSize * 2)
 		columnHeight := dp.size.height - (borderSize * 2)
+
 		return lipgloss.JoinHorizontal(
 			lipgloss.Top,
 			dp.recipeColumn(Size{recipeColumnWidth, columnHeight}, gap),
