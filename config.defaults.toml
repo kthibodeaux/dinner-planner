@@ -1,11 +1,11 @@
 recipes = "~/recipes"
 
-[planner]
-color = "#248721"
-first_day_of_week = "sunday"
-
 [web]
 port = "8080"
 
-[keys]
+[planner]
+color = "#7E4B8C"
+first_day_of_week = "sunday"
+
+[planner.keys]
 quit = "ctrl+c"
