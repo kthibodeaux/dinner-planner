@@ -5,26 +5,30 @@ import (
 )
 
 var (
-	borderSize = 1
+	borderForce = -1
+	borderSize  = 1
 )
 
 func (dp dinnerPlan) View() string {
-	unit := dp.size.width / 10
-	gap := dp.size.width - (unit * 10)
+	if dp.mode == ModeHelp {
+		return dp.viewHelp()
+	} else {
+		unit := dp.size.width / 10
+		gap := dp.size.width - (unit * 10)
 
-	recipeColumnWidth := (unit * 6) - (borderSize * 2)
-	daysColumnsWidth := (unit * 4) - (borderSize * 2)
-	columnHeight := dp.size.height - (borderSize * 2)
-
-	return lipgloss.JoinHorizontal(
-		lipgloss.Top,
-		dp.recipeColumn(Size{recipeColumnWidth, columnHeight}, gap),
-		dp.dayColumns(Size{daysColumnsWidth, columnHeight}),
-	)
+		recipeColumnWidth := (unit * 6) - (borderSize * 2)
+		daysColumnsWidth := (unit * 4) - (borderSize * 2)
+		columnHeight := dp.size.height - (borderSize * 2)
+		return lipgloss.JoinHorizontal(
+			lipgloss.Top,
+			dp.recipeColumn(Size{recipeColumnWidth, columnHeight}, gap),
+			dp.dayColumns(Size{daysColumnsWidth, columnHeight}),
+		)
+	}
 }
 
 func (dp *dinnerPlan) paneBorder(index int) lipgloss.Style {
-	if index == dp.focusIndex {
+	if index == dp.focusIndex || index == borderForce {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder()).
 			BorderForeground(lipgloss.Color(*dp.color))
@@ -32,6 +36,12 @@ func (dp *dinnerPlan) paneBorder(index int) lipgloss.Style {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder())
 	}
+}
+
+func (dp *dinnerPlan) styleSelected() lipgloss.Style {
+	return lipgloss.NewStyle().
+		Foreground(lipgloss.Color(*dp.color)).
+		Bold(true)
 }
 
 func (dp *dinnerPlan) recipeColumn(size Size, gap int) string {

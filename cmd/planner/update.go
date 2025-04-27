@@ -6,6 +6,10 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
+		case dp.keys.Help:
+			dp.mode = ModeHelp
+		case dp.keys.MainView:
+			dp.mode = ModeAssign
 		case dp.keys.Focus:
 			dp.mode = ModeNavigatePane
 		case dp.keys.Recipes:

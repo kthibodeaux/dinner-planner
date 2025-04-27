@@ -14,6 +14,7 @@ type Mode int
 
 const (
 	ModeAssign Mode = iota
+	ModeHelp
 	ModeNavigatePane
 )
 

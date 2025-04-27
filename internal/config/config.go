@@ -25,16 +25,18 @@ type PlannerConfig struct {
 }
 
 type KeyConfig struct {
-	Focus   string `toml:"focus"`
-	Recipes string `toml:"focus_recipes"`
-	Day1    string `toml:"focus_day_1"`
-	Day2    string `toml:"focus_day_2"`
-	Day3    string `toml:"focus_day_3"`
-	Day4    string `toml:"focus_day_4"`
-	Day5    string `toml:"focus_day_5"`
-	Day6    string `toml:"focus_day_6"`
-	Day7    string `toml:"focus_day_7"`
-	Quit    string `toml:"quit"`
+	MainView string `toml:"main_view"`
+	Focus    string `toml:"focus"`
+	Help     string `toml:"help"`
+	Recipes  string `toml:"focus_recipes"`
+	Day1     string `toml:"focus_day_1"`
+	Day2     string `toml:"focus_day_2"`
+	Day3     string `toml:"focus_day_3"`
+	Day4     string `toml:"focus_day_4"`
+	Day5     string `toml:"focus_day_5"`
+	Day6     string `toml:"focus_day_6"`
+	Day7     string `toml:"focus_day_7"`
+	Quit     string `toml:"quit"`
 }
 
 type WebConfig struct {
@@ -109,8 +111,14 @@ func LoadConfig() *config {
 	if config.Planner.Keys.Quit == "" {
 		config.Planner.Keys.Quit = "ctrl+c"
 	}
+	if config.Planner.Keys.MainView == "" {
+		config.Planner.Keys.MainView = "q"
+	}
 	if config.Planner.Keys.Focus == "" {
 		config.Planner.Keys.Focus = "f"
+	}
+	if config.Planner.Keys.Help == "" {
+		config.Planner.Keys.Help = "h"
 	}
 	if config.Planner.Keys.Recipes == "" {
 		config.Planner.Keys.Recipes = "0"

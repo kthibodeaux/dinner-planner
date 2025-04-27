@@ -9,6 +9,8 @@ first_day_of_week = "sunday"
 
 [planner.keys]
 quit = "ctrl+c"
+main_view = "q" # ie close help
+help = "h"
 focus = "f"
 recipes = "0"
 day_1 = "1"
