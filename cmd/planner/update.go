@@ -6,22 +6,24 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-		case dp.keys.FocusRecipes:
-			dp.setFocus(0)
-		case dp.keys.FocusDay1:
-			dp.setFocus(1)
-		case dp.keys.FocusDay2:
-			dp.setFocus(2)
-		case dp.keys.FocusDay3:
-			dp.setFocus(3)
-		case dp.keys.FocusDay4:
-			dp.setFocus(4)
-		case dp.keys.FocusDay5:
-			dp.setFocus(5)
-		case dp.keys.FocusDay6:
-			dp.setFocus(6)
-		case dp.keys.FocusDay7:
-			dp.setFocus(7)
+		case dp.keys.Focus:
+			dp.mode = ModeNavigatePane
+		case dp.keys.Recipes:
+			dp.handlePane(0)
+		case dp.keys.Day1:
+			dp.handlePane(1)
+		case dp.keys.Day2:
+			dp.handlePane(2)
+		case dp.keys.Day3:
+			dp.handlePane(3)
+		case dp.keys.Day4:
+			dp.handlePane(4)
+		case dp.keys.Day5:
+			dp.handlePane(5)
+		case dp.keys.Day6:
+			dp.handlePane(6)
+		case dp.keys.Day7:
+			dp.handlePane(7)
 		case dp.keys.Quit:
 			return dp.quit()
 		}
@@ -37,6 +39,9 @@ func (dp *dinnerPlan) quit() (tea.Model, tea.Cmd) {
 	return dp, tea.Quit
 }
 
-func (dp *dinnerPlan) setFocus(index int) {
-	dp.focusIndex = index
+func (dp *dinnerPlan) handlePane(index int) {
+	if dp.mode == ModeNavigatePane {
+		dp.focusIndex = index
+		dp.mode = ModeAssign
+	}
 }

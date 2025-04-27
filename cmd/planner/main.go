@@ -10,6 +10,13 @@ import (
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
+type Mode int
+
+const (
+	ModeAssign Mode = iota
+	ModeNavigatePane
+)
+
 type dinnerPlan struct {
 	color   *string
 	keys    *config.KeyConfig
@@ -17,6 +24,7 @@ type dinnerPlan struct {
 	dates   []time.Time
 
 	focusIndex int
+	mode       Mode
 	size       Size
 }
 
@@ -38,6 +46,7 @@ func main() {
 			keys:    &config.Planner.Keys,
 			recipes: recipe.Load(config.RecipeDirectory),
 			dates:   utils.DatesForWeekStartingOn(config.StartDate),
+			mode:    ModeAssign,
 		},
 	)
 	p.Run()
