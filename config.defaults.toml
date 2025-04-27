@@ -1,3 +1,22 @@
-first_day_of_week = "sunday"
 recipes = "~/recipes"
-web_port = "8080"
+
+[web]
+port = "8080"
+
+[planner]
+color = "#3A5B7E"
+first_day_of_week = "sunday"
+
+[planner.keys]
+quit = "ctrl+c"
+main_view = "q" # ie close help
+help = "h"
+focus = "f"
+recipes = "0"
+day_1 = "1"
+day_2 = "2"
+day_3 = "3"
+day_4 = "4"
+day_5 = "5"
+day_6 = "6"
+day_7 = "7"
