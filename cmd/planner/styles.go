@@ -25,7 +25,11 @@ func (dp *dinnerPlan) styleSelected(bold bool) lipgloss.Style {
 }
 
 func (dp *dinnerPlan) paneHeader(key string, title string) string {
-	keyBinding := dp.styleSelected(false).Render("[" + key + "]")
+	keyInfo := ""
 
-	return dp.styleSelected(true).Render(keyBinding + " " + title)
+	if key != "" {
+		keyInfo = dp.styleSelected(false).Render("[" + key + "] ")
+	}
+
+	return lipgloss.NewStyle().Render(keyInfo + title)
 }
