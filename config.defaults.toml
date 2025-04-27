@@ -4,7 +4,7 @@ recipes = "~/recipes"
 port = "8080"
 
 [planner]
-color = "#7E4B8C"
+color = "#3A5B7E"
 first_day_of_week = "sunday"
 
 [planner.keys]

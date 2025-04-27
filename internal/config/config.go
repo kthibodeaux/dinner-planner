@@ -89,7 +89,7 @@ func LoadConfig() *config {
 	}
 
 	if config.Planner.Color == "" {
-		config.Planner.Color = "#7E4B8C"
+		config.Planner.Color = "#3A5B7E"
 	}
 	if config.Planner.FirstDayOfWeek == "" {
 		config.Planner.FirstDayOfWeek = "sunday"
