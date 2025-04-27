@@ -43,7 +43,7 @@ func (dp *dinnerPlan) dayColumns(size Size) string {
 func (dp *dinnerPlan) daysLeftColumn(size Size) string {
 	days := []string{}
 
-	for _, dayNum := range []int{0, 2, 4, 6} {
+	for _, dayNum := range []int{0, 1, 2, 3} {
 		days = append(days, dp.dayPane(size, dayNum))
 	}
 
@@ -53,7 +53,7 @@ func (dp *dinnerPlan) daysLeftColumn(size Size) string {
 func (dp *dinnerPlan) daysRightColumn(size Size) string {
 	days := []string{}
 
-	for _, dayNum := range []int{1, 3, 5} {
+	for _, dayNum := range []int{4, 5, 6} {
 		days = append(days, dp.dayPane(size, dayNum))
 	}
 
