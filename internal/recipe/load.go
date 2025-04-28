@@ -35,13 +35,13 @@ func Load(directory string) ([]*Recipe, error) {
 func parse(filePath string) (*Recipe, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	defer file.Close()
 
 	b, err := io.ReadAll(file)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	recipe := Recipe{
@@ -50,7 +50,7 @@ func parse(filePath string) (*Recipe, error) {
 
 	err = toml.Unmarshal(b, &recipe)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	recipe.CategoryID = utils.Slugify(recipe.CookbookCategory)
