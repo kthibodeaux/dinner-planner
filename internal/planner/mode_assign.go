@@ -5,21 +5,20 @@ import "github.com/charmbracelet/lipgloss"
 func (dp *dinnerPlan) viewModeAssign() string {
 	unit := dp.size.width / 10
 	gap := dp.size.width - (unit * 10)
-	recipeColumnWidth := (unit * 6) - (borderSize * 2)
-	daysColumnsWidth := (unit * 4) - (borderSize * 2)
+	recipeColumnWidth := (unit * 6) - (borderSize * 2) + gap
+	daysColumnsWidth := (unit * 4)
 	columnHeight := dp.size.height - (borderSize * 2)
 
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		dp.recipeColumn(Size{recipeColumnWidth, columnHeight}, gap),
+		dp.recipeColumn(Size{recipeColumnWidth, columnHeight}),
 		dp.dayColumns(Size{daysColumnsWidth, columnHeight}),
 	)
 }
-func (dp *dinnerPlan) recipeColumn(size Size, gap int) string {
+func (dp *dinnerPlan) recipeColumn(size Size) string {
 	return dp.paneBorder(0).
 		Width(size.width).
 		Height(size.height).
-		MarginRight(gap).
 		Render(dp.paneHeader(dp.keys.Recipes, "Recipes"))
 }
 
