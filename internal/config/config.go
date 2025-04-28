@@ -1,6 +1,7 @@
 package config
 
 import (
+	"cmp"
 	"flag"
 	"log"
 	"os"
@@ -43,18 +44,20 @@ type WebConfig struct {
 	Port string `toml:"port"`
 }
 
-var (
-	flagConfigFilePath  string
-	flagRecipeDirectory string
-	flagStartDate       string
-	flagWebPort         string
-)
-
 const (
 	defaultWebPort = "8080"
 )
 
 func LoadConfig() *Config {
+	config := &Config{}
+
+	var (
+		flagConfigFilePath  string
+		flagRecipeDirectory string
+		flagStartDate       string
+		flagWebPort         string
+	)
+
 	flag.StringVar(&flagConfigFilePath, "config-file", defaultConfigFilePath(), "Path to the configuration file")
 	flag.StringVar(&flagRecipeDirectory, "recipes", "", "Path to the recipes")
 	flag.StringVar(&flagStartDate, "date", "", "Start date for the week")
@@ -62,7 +65,6 @@ func LoadConfig() *Config {
 
 	flag.Parse()
 
-	config := &Config{}
 	if fileExists(flagConfigFilePath) {
 		log.Println("Loading config file:", flagConfigFilePath)
 		data, err := os.ReadFile(flagConfigFilePath)
@@ -81,9 +83,7 @@ func LoadConfig() *Config {
 	if flagRecipeDirectory != "" {
 		config.RecipeDirectory = flagRecipeDirectory
 	}
-	if flagStartDate != "" {
-		config.StartDate = flagStartDate
-	}
+	config.StartDate = cmp.Or(flagStartDate, config.StartDate)
 	if flagWebPort != "" {
 		config.Web.Port = flagWebPort
 	}
