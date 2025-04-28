@@ -17,10 +17,10 @@ func (dp *dinnerPlan) viewModeAssign() string {
 }
 
 func (dp *dinnerPlan) recipeColumn(size Size) string {
-	return dp.paneBorder(0).
+	return dp.stylePaneBorder(0).
 		Width(size.width).
 		Height(size.height).
-		Render(dp.paneHeader(dp.keys.Recipes, "Recipes"))
+		Render(dp.stylePaneHeader(dp.keys.Recipes, "Recipes"))
 }
 
 func (dp *dinnerPlan) dayColumns(size Size) string {
@@ -56,8 +56,8 @@ func (dp *dinnerPlan) daysRightColumn(size Size) string {
 func (dp *dinnerPlan) dayPane(size Size, index int) string {
 	dayPaneHeight := (dp.size.height / 4) - (borderSize * 2)
 
-	return dp.paneBorder(index + 1).
+	return dp.stylePaneBorder(index + 1).
 		Width(size.width).
 		Height(dayPaneHeight).
-		Render(dp.paneHeader(dp.dayKeyMap[index], dp.dates[index].Format("Monday, January 2")))
+		Render(dp.stylePaneHeader(dp.dayKeyMap[index], dp.dates[index].Format("Monday, January 2")))
 }

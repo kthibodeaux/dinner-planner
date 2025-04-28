@@ -28,7 +28,7 @@ func (dp *dinnerPlan) viewModeHelp() string {
 		"Day 7:        " + dp.keys.Day7 + "\n" +
 		"Quit:         " + dp.keys.Quit
 
-	pane := dp.paneBorder(borderForce).
+	pane := dp.stylePaneBorder(borderForce).
 		Width(width).
 		Height(height).
 		Padding(1, 2).

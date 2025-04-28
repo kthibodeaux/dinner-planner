@@ -7,7 +7,7 @@ var (
 	borderSize  = 1
 )
 
-func (dp *dinnerPlan) paneBorder(index int) lipgloss.Style {
+func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
 	if index == dp.focusIndex || index == borderForce {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder()).
@@ -24,7 +24,7 @@ func (dp *dinnerPlan) styleSelected(bold bool) lipgloss.Style {
 		Bold(bold)
 }
 
-func (dp *dinnerPlan) paneHeader(key string, title string) string {
+func (dp *dinnerPlan) stylePaneHeader(key string, title string) string {
 	keyInfo := ""
 
 	if key != "" {
