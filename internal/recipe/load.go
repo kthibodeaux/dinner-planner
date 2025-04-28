@@ -11,10 +11,10 @@ import (
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
-func Load(directory string) []*Recipe {
+func Load(directory string) ([]*Recipe, error) {
 	entries, err := os.ReadDir(directory)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	var recipes []*Recipe
@@ -29,7 +29,7 @@ func Load(directory string) []*Recipe {
 		}
 	}
 
-	return recipes
+	return recipes, nil
 }
 
 func parse(filePath string) (*Recipe, error) {
