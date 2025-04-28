@@ -15,6 +15,7 @@ func (dp *dinnerPlan) viewModeAssign() string {
 		dp.dayColumns(Size{daysColumnsWidth, columnHeight}),
 	)
 }
+
 func (dp *dinnerPlan) recipeColumn(size Size) string {
 	return dp.paneBorder(0).
 		Width(size.width).
