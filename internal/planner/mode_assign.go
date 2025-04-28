@@ -11,8 +11,8 @@ func (dp *dinnerPlan) viewModeAssign() string {
 
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		dp.recipeColumn(Size{recipeColumnWidth, columnHeight}),
-		dp.dayColumns(Size{daysColumnsWidth, columnHeight}),
+		dp.recipeColumn(Size{width: recipeColumnWidth, height: columnHeight}),
+		dp.dayColumns(Size{width: daysColumnsWidth, height: columnHeight}),
 	)
 }
 
@@ -28,8 +28,8 @@ func (dp *dinnerPlan) dayColumns(size Size) string {
 
 	return lipgloss.JoinHorizontal(
 		lipgloss.Top,
-		dp.daysLeftColumn(Size{dayColumnWidth, size.height}),
-		dp.daysRightColumn(Size{dayColumnWidth, size.height}),
+		dp.daysLeftColumn(Size{width: dayColumnWidth, height: size.height}),
+		dp.daysRightColumn(Size{width: dayColumnWidth, height: size.height}),
 	)
 }
 

@@ -8,7 +8,10 @@ import (
 )
 
 func main() {
-	config := config.LoadConfig()
+	config, err := config.LoadConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	log.Println("Recipes:", config.RecipeDirectory)
 

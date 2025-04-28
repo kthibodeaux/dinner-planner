@@ -1,7 +1,9 @@
 package config
 
 import (
+	"cmp"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -43,34 +45,40 @@ type WebConfig struct {
 	Port string `toml:"port"`
 }
 
-var (
-	flagConfigFilePath  string
-	flagRecipeDirectory string
-	flagStartDate       string
-	flagWebPort         string
-)
-
 const (
 	defaultWebPort = "8080"
 )
 
-func LoadConfig() *Config {
-	flag.StringVar(&flagConfigFilePath, "config-file", defaultConfigFilePath(), "Path to the configuration file")
+func LoadConfig() (*Config, error) {
+	config := &Config{}
+
+	var (
+		flagConfigFilePath  string
+		flagRecipeDirectory string
+		flagStartDate       string
+		flagWebPort         string
+	)
+
+	defaultConfigFilePath, err := defaultConfigFilePath()
+	if err != nil {
+		return nil, err
+	}
+
+	flag.StringVar(&flagConfigFilePath, "config-file", defaultConfigFilePath, "Path to the configuration file")
 	flag.StringVar(&flagRecipeDirectory, "recipes", "", "Path to the recipes")
 	flag.StringVar(&flagStartDate, "date", "", "Start date for the week")
 	flag.StringVar(&flagWebPort, "port", "", "Port to serve the web application on")
 
 	flag.Parse()
 
-	config := &Config{}
 	if fileExists(flagConfigFilePath) {
 		log.Println("Loading config file:", flagConfigFilePath)
 		data, err := os.ReadFile(flagConfigFilePath)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 		if err := toml.Unmarshal(data, config); err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 	} else {
 		log.Println("Config file does not exist:", flagConfigFilePath)
@@ -81,9 +89,7 @@ func LoadConfig() *Config {
 	if flagRecipeDirectory != "" {
 		config.RecipeDirectory = flagRecipeDirectory
 	}
-	if flagStartDate != "" {
-		config.StartDate = flagStartDate
-	}
+	config.StartDate = cmp.Or(flagStartDate, config.StartDate)
 	if flagWebPort != "" {
 		config.Web.Port = flagWebPort
 	}
@@ -98,7 +104,10 @@ func LoadConfig() *Config {
 		config.RecipeDirectory = expandHome("~/recipes")
 	}
 	if config.StartDate == "" {
-		config.StartDate = startOfWeek(time.Now(), config.Planner.FirstDayOfWeek)
+		config.StartDate, err = startOfWeek(time.Now(), config.Planner.FirstDayOfWeek)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if config.Web.Port == "" {
 		config.Web.Port = defaultWebPort
@@ -145,7 +154,7 @@ func LoadConfig() *Config {
 		config.Planner.Keys.Day7 = "7"
 	}
 
-	return config
+	return config, nil
 }
 
 func fileExists(path string) bool {
@@ -153,16 +162,16 @@ func fileExists(path string) bool {
 	return err == nil
 }
 
-func defaultConfigFilePath() string {
+func defaultConfigFilePath() (string, error) {
 	xdgConfigHome := os.Getenv("XDG_CONFIG_HOME")
 	if xdgConfigHome == "" {
 		homePath, err := os.UserHomeDir()
 		if err != nil {
-			log.Fatal(err)
+			return "", err
 		}
 		xdgConfigHome = filepath.Join(homePath, ".config")
 	}
-	return filepath.Join(xdgConfigHome, "dinner-planner.toml")
+	return filepath.Join(xdgConfigHome, "dinner-planner.toml"), nil
 }
 
 func expandHome(path string) string {
@@ -176,7 +185,7 @@ func expandHome(path string) string {
 	return path
 }
 
-func startOfWeek(currentDate time.Time, weekdayName string) string {
+func startOfWeek(currentDate time.Time, weekdayName string) (string, error) {
 	weekdayName = strings.ToLower(weekdayName)
 
 	weekdayMap := map[string]time.Weekday{
@@ -191,13 +200,13 @@ func startOfWeek(currentDate time.Time, weekdayName string) string {
 
 	targetDay, ok := weekdayMap[weekdayName]
 	if !ok {
-		log.Fatal("invalid weekday name:", weekdayName)
+		return "", fmt.Errorf("invalid weekday name: %s", weekdayName)
 	}
 
 	offset := (int(currentDate.Weekday()) - int(targetDay) + 7) % 7
 	date := currentDate.AddDate(0, 0, -offset)
 
-	return date.Format("2006-01-02")
+	return date.Format("2006-01-02"), nil
 }
 
 func (c *Config) DayKeyMap() map[int]string {

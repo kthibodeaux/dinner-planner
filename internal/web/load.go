@@ -5,8 +5,11 @@ import (
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
-func getRecipes(directory string) map[string]*recipe.Recipe {
-	allRecipes := recipe.Load(directory)
+func getRecipes(directory string) (map[string]*recipe.Recipe, error) {
+	allRecipes, err := recipe.Load(directory)
+	if err != nil {
+		return nil, err
+	}
 
 	recipes := make(map[string]*recipe.Recipe)
 	for _, recipe := range allRecipes {
@@ -15,7 +18,7 @@ func getRecipes(directory string) map[string]*recipe.Recipe {
 		}
 	}
 
-	return recipes
+	return recipes, nil
 }
 
 func getUniqueCategories() map[string]string {
