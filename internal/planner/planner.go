@@ -56,6 +56,7 @@ func Run(config *config.Config, recipes []*recipe.Recipe, dates []time.Time) {
 			dates:     dates,
 			mode:      ModeAssign,
 		},
+		tea.WithAltScreen(),
 	)
 	p.Run()
 }
