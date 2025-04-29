@@ -45,7 +45,7 @@ func (dp *dinnerPlan) quit() (tea.Model, tea.Cmd) {
 
 func (dp *dinnerPlan) handlePane(index int) {
 	if dp.mode == ModeNavigatePane {
-		dp.focusIndex = index
+		dp.paneFocusIndex = index
 		dp.mode = ModeAssign
 	}
 }

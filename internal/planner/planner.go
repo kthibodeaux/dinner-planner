@@ -29,9 +29,9 @@ type dinnerPlan struct {
 	recipes   []*recipe.Recipe
 	dates     []time.Time
 
-	focusIndex int
-	mode       Mode
-	size       Size
+	paneFocusIndex int
+	mode           Mode
+	size           Size
 }
 
 func (dp dinnerPlan) Init() tea.Cmd {

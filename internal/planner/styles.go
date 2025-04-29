@@ -8,7 +8,7 @@ var (
 )
 
 func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
-	if index == dp.focusIndex || index == borderForce {
+	if index == dp.paneFocusIndex || index == borderForce {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder()).
 			BorderForeground(lipgloss.Color(*dp.color))
