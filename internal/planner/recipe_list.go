@@ -53,3 +53,19 @@ func (rl *RecipeList) RenderHeader() string {
 
 	return lipgloss.NewStyle().Render(keyInfo + rl.Title + "\n\n")
 }
+
+func (rl *RecipeList) handleDown() {
+	if rl.SelectedIndex >= len(rl.Recipes)-1 {
+		return
+	}
+
+	rl.SelectedIndex++
+}
+
+func (rl *RecipeList) handleUp() {
+	if rl.SelectedIndex == 0 {
+		return
+	}
+
+	rl.SelectedIndex--
+}

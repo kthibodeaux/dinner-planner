@@ -31,6 +31,8 @@ type KeyConfig struct {
 	Focus    string `toml:"focus"`
 	Help     string `toml:"help"`
 	Recipes  string `toml:"recipes"`
+	Down     string `toml:"down"`
+	Up       string `toml:"up"`
 	Day1     string `toml:"day_1"`
 	Day2     string `toml:"day_2"`
 	Day3     string `toml:"day_3"`
@@ -131,6 +133,12 @@ func LoadConfig() (*Config, error) {
 	}
 	if config.Planner.Keys.Recipes == "" {
 		config.Planner.Keys.Recipes = "0"
+	}
+	if config.Planner.Keys.Down == "" {
+		config.Planner.Keys.Down = "j"
+	}
+	if config.Planner.Keys.Up == "" {
+		config.Planner.Keys.Up = "k"
 	}
 	if config.Planner.Keys.Day1 == "" {
 		config.Planner.Keys.Day1 = "1"

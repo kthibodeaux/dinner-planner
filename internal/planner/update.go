@@ -30,6 +30,10 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			dp.handlePane(6)
 		case dp.keys.Day7:
 			dp.handlePane(7)
+		case dp.keys.Down:
+			dp.handleDown()
+		case dp.keys.Up:
+			dp.handleUp()
 		case dp.keys.Quit:
 			return dp.quit()
 		}
@@ -50,4 +54,12 @@ func (dp *dinnerPlan) handlePane(index int) {
 		dp.paneFocusIndex = index
 		dp.mode = ModeAssign
 	}
+}
+
+func (dp *dinnerPlan) handleDown() {
+	dp.recipeLists[dp.paneFocusIndex].handleDown()
+}
+
+func (dp *dinnerPlan) handleUp() {
+	dp.recipeLists[dp.paneFocusIndex].handleUp()
 }
