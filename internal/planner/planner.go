@@ -56,14 +56,13 @@ func Run(recipes []*recipe.Recipe, dates []time.Time) {
 	}
 
 	dayKeyMap := config.Get().DayKeyMap()
-	selectedStyle := dinnerPlan.styleSelected()
 
-	mainRecipeList := NewRecipeList(selectedStyle, config.Get().Planner.Keys.Recipes, "Recipes", recipes)
+	mainRecipeList := NewRecipeList(config.Get().Planner.Keys.Recipes, "Recipes", recipes)
 	dinnerPlan.recipeLists[0] = &mainRecipeList
 	for index := range dates {
 		hotkey := dayKeyMap[index]
 		title := dates[index].Format("Monday, January 2")
-		recipeList := NewRecipeList(selectedStyle, hotkey, title, make([]*recipe.Recipe, 0))
+		recipeList := NewRecipeList(hotkey, title, make([]*recipe.Recipe, 0))
 		dinnerPlan.recipeLists[index+1] = &recipeList
 	}
 

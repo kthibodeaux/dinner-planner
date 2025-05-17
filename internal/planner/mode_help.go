@@ -9,9 +9,9 @@ func (dp *dinnerPlan) viewModeHelp() string {
 	width := 30
 	height := 20
 
-	title := dp.styleSelected().Render("Help")
+	title := styleSelected.Render("Help")
 	subtitle := config.Get().Planner.Keys.MainView + " to close"
-	keyBindings := dp.styleSelected().Render("Key Bindings")
+	keyBindings := styleSelected.Render("Key Bindings")
 
 	header := lipgloss.NewStyle().
 		Align(lipgloss.Center).

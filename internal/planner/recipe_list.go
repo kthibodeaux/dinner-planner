@@ -12,16 +12,14 @@ type RecipeList struct {
 	Offset        int
 	Recipes       []*recipe.Recipe
 	SelectedIndex int
-	SelectedStyle lipgloss.Style
 	Title         string
 }
 
-func NewRecipeList(selectedStyle lipgloss.Style, hotkey string, title string, recipes []*recipe.Recipe) RecipeList {
+func NewRecipeList(hotkey string, title string, recipes []*recipe.Recipe) RecipeList {
 	return RecipeList{
-		SelectedStyle: selectedStyle,
-		Title:         title,
-		Hotkey:        hotkey,
-		Recipes:       recipes,
+		Title:   title,
+		Hotkey:  hotkey,
+		Recipes: recipes,
 	}
 }
 
@@ -36,7 +34,7 @@ func (rl *RecipeList) Render(isActive bool, size Size) string {
 			name = recipes[r].Name[:size.width-4] + "..."
 		}
 		if r == rl.SelectedIndex && isActive {
-			name = rl.SelectedStyle.Render(name)
+			name = styleSelected.Render(name)
 		}
 		recipeNames = append(recipeNames, name)
 	}
@@ -48,7 +46,7 @@ func (rl *RecipeList) RenderHeader() string {
 	keyInfo := ""
 
 	if rl.Hotkey != "" {
-		keyInfo = rl.SelectedStyle.Render("[" + rl.Hotkey + "] ")
+		keyInfo = styleSelected.Render("[" + rl.Hotkey + "] ")
 	}
 
 	return lipgloss.NewStyle().Render(keyInfo + rl.Title + "\n\n")

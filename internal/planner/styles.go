@@ -8,6 +8,10 @@ import (
 var (
 	borderForce = -1
 	borderSize  = 1
+
+	styleSelected = lipgloss.NewStyle().
+			Foreground(lipgloss.Color(config.Get().Planner.Color)).
+			Bold(true)
 )
 
 func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
@@ -19,20 +23,4 @@ func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder())
 	}
-}
-
-func (dp *dinnerPlan) styleSelected() lipgloss.Style {
-	return lipgloss.NewStyle().
-		Foreground(lipgloss.Color(config.Get().Planner.Color)).
-		Bold(true)
-}
-
-func (dp *dinnerPlan) styleListItem() lipgloss.Style {
-	return lipgloss.NewStyle().
-		PaddingLeft(4)
-}
-
-func (dp *dinnerPlan) styleListItemSelected() lipgloss.Style {
-	return dp.styleListItem().
-		Foreground(lipgloss.Color(config.Get().Planner.Color))
 }
