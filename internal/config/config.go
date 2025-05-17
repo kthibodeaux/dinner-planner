@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -47,11 +48,25 @@ type WebConfig struct {
 	Port string `toml:"port"`
 }
 
-const (
-	defaultWebPort = "8080"
+const defaultWebPort = "8080"
+
+var (
+	instance *Config
+	once     sync.Once
 )
 
-func LoadConfig() (*Config, error) {
+func Get() *Config {
+	once.Do(func() {
+		cfg, err := loadConfig()
+		if err != nil {
+			log.Fatalf("Failed to load config: %v", err)
+		}
+		instance = cfg
+	})
+	return instance
+}
+
+func loadConfig() (*Config, error) {
 	config := &Config{}
 
 	var (
@@ -70,7 +85,6 @@ func LoadConfig() (*Config, error) {
 	flag.StringVar(&flagRecipeDirectory, "recipes", "", "Path to the recipes")
 	flag.StringVar(&flagStartDate, "date", "", "Start date for the week")
 	flag.StringVar(&flagWebPort, "port", "", "Port to serve the web application on")
-
 	flag.Parse()
 
 	if fileExists(flagConfigFilePath) {
@@ -114,52 +128,53 @@ func LoadConfig() (*Config, error) {
 	if config.Web.Port == "" {
 		config.Web.Port = defaultWebPort
 	}
-
 	if config.Web.Port[0] != ':' {
 		config.Web.Port = ":" + config.Web.Port
 	}
 
-	if config.Planner.Keys.Quit == "" {
-		config.Planner.Keys.Quit = "ctrl+c"
+	// Defaults for keys
+	k := &config.Planner.Keys
+	if k.Quit == "" {
+		k.Quit = "ctrl+c"
 	}
-	if config.Planner.Keys.MainView == "" {
-		config.Planner.Keys.MainView = "q"
+	if k.MainView == "" {
+		k.MainView = "q"
 	}
-	if config.Planner.Keys.Focus == "" {
-		config.Planner.Keys.Focus = "f"
+	if k.Focus == "" {
+		k.Focus = "f"
 	}
-	if config.Planner.Keys.Help == "" {
-		config.Planner.Keys.Help = "h"
+	if k.Help == "" {
+		k.Help = "h"
 	}
-	if config.Planner.Keys.Recipes == "" {
-		config.Planner.Keys.Recipes = "0"
+	if k.Recipes == "" {
+		k.Recipes = "0"
 	}
-	if config.Planner.Keys.Down == "" {
-		config.Planner.Keys.Down = "j"
+	if k.Down == "" {
+		k.Down = "j"
 	}
-	if config.Planner.Keys.Up == "" {
-		config.Planner.Keys.Up = "k"
+	if k.Up == "" {
+		k.Up = "k"
 	}
-	if config.Planner.Keys.Day1 == "" {
-		config.Planner.Keys.Day1 = "1"
+	if k.Day1 == "" {
+		k.Day1 = "1"
 	}
-	if config.Planner.Keys.Day2 == "" {
-		config.Planner.Keys.Day2 = "2"
+	if k.Day2 == "" {
+		k.Day2 = "2"
 	}
-	if config.Planner.Keys.Day3 == "" {
-		config.Planner.Keys.Day3 = "3"
+	if k.Day3 == "" {
+		k.Day3 = "3"
 	}
-	if config.Planner.Keys.Day4 == "" {
-		config.Planner.Keys.Day4 = "4"
+	if k.Day4 == "" {
+		k.Day4 = "4"
 	}
-	if config.Planner.Keys.Day5 == "" {
-		config.Planner.Keys.Day5 = "5"
+	if k.Day5 == "" {
+		k.Day5 = "5"
 	}
-	if config.Planner.Keys.Day6 == "" {
-		config.Planner.Keys.Day6 = "6"
+	if k.Day6 == "" {
+		k.Day6 = "6"
 	}
-	if config.Planner.Keys.Day7 == "" {
-		config.Planner.Keys.Day7 = "7"
+	if k.Day7 == "" {
+		k.Day7 = "7"
 	}
 
 	return config, nil
@@ -194,8 +209,6 @@ func expandHome(path string) string {
 }
 
 func startOfWeek(currentDate time.Time, weekdayName string) (string, error) {
-	weekdayName = strings.ToLower(weekdayName)
-
 	weekdayMap := map[string]time.Weekday{
 		"sunday":    time.Sunday,
 		"monday":    time.Monday,
@@ -206,7 +219,7 @@ func startOfWeek(currentDate time.Time, weekdayName string) (string, error) {
 		"saturday":  time.Saturday,
 	}
 
-	targetDay, ok := weekdayMap[weekdayName]
+	targetDay, ok := weekdayMap[strings.ToLower(weekdayName)]
 	if !ok {
 		return "", fmt.Errorf("invalid weekday name: %s", weekdayName)
 	}

@@ -1,13 +1,16 @@
 package planner
 
-import "github.com/charmbracelet/lipgloss"
+import (
+	"github.com/charmbracelet/lipgloss"
+	"github.com/kthibodeaux/dinner-planner/internal/config"
+)
 
 func (dp *dinnerPlan) viewModeHelp() string {
 	width := 30
 	height := 20
 
 	title := dp.styleSelected().Render("Help")
-	subtitle := dp.keys.MainView + " to close"
+	subtitle := config.Get().Planner.Keys.MainView + " to close"
 	keyBindings := dp.styleSelected().Render("Key Bindings")
 
 	header := lipgloss.NewStyle().
@@ -16,17 +19,17 @@ func (dp *dinnerPlan) viewModeHelp() string {
 		Render(title + "\n" + subtitle + "\n\n" + keyBindings + "\n")
 
 	content := header +
-		"Focus:        " + dp.keys.Focus + "\n" +
-		"Help:         " + dp.keys.Help + "\n" +
-		"Recipes:      " + dp.keys.Recipes + "\n" +
-		"Day 1:        " + dp.keys.Day1 + "\n" +
-		"Day 2:        " + dp.keys.Day2 + "\n" +
-		"Day 3:        " + dp.keys.Day3 + "\n" +
-		"Day 4:        " + dp.keys.Day4 + "\n" +
-		"Day 5:        " + dp.keys.Day5 + "\n" +
-		"Day 6:        " + dp.keys.Day6 + "\n" +
-		"Day 7:        " + dp.keys.Day7 + "\n" +
-		"Quit:         " + dp.keys.Quit
+		"Focus:        " + config.Get().Planner.Keys.Focus + "\n" +
+		"Help:         " + config.Get().Planner.Keys.Help + "\n" +
+		"Recipes:      " + config.Get().Planner.Keys.Recipes + "\n" +
+		"Day 1:        " + config.Get().Planner.Keys.Day1 + "\n" +
+		"Day 2:        " + config.Get().Planner.Keys.Day2 + "\n" +
+		"Day 3:        " + config.Get().Planner.Keys.Day3 + "\n" +
+		"Day 4:        " + config.Get().Planner.Keys.Day4 + "\n" +
+		"Day 5:        " + config.Get().Planner.Keys.Day5 + "\n" +
+		"Day 6:        " + config.Get().Planner.Keys.Day6 + "\n" +
+		"Day 7:        " + config.Get().Planner.Keys.Day7 + "\n" +
+		"Quit:         " + config.Get().Planner.Keys.Quit
 
 	pane := dp.stylePaneBorder(borderForce).
 		Width(width).

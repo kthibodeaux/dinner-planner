@@ -23,8 +23,6 @@ type Size struct {
 }
 
 type dinnerPlan struct {
-	color       *string
-	keys        *config.KeyConfig
 	recipeLists []*RecipeList
 
 	paneFocusIndex int
@@ -51,18 +49,16 @@ func (dp dinnerPlan) View() string {
 	}
 }
 
-func Run(config *config.Config, recipes []*recipe.Recipe, dates []time.Time) {
+func Run(recipes []*recipe.Recipe, dates []time.Time) {
 	dinnerPlan := dinnerPlan{
-		color:       &config.Planner.Color,
-		keys:        &config.Planner.Keys,
 		recipeLists: make([]*RecipeList, 8),
 		mode:        ModeAssign,
 	}
 
-	dayKeyMap := config.DayKeyMap()
+	dayKeyMap := config.Get().DayKeyMap()
 	selectedStyle := dinnerPlan.styleSelected()
 
-	mainRecipeList := NewRecipeList(selectedStyle, dinnerPlan.keys.Recipes, "Recipes", recipes)
+	mainRecipeList := NewRecipeList(selectedStyle, config.Get().Planner.Keys.Recipes, "Recipes", recipes)
 	dinnerPlan.recipeLists[0] = &mainRecipeList
 	for index := range dates {
 		hotkey := dayKeyMap[index]
