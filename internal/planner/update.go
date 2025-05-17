@@ -1,6 +1,8 @@
 package planner
 
 import (
+	"slices"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -53,6 +55,32 @@ func (dp *dinnerPlan) handlePane(index int) {
 	if dp.mode == ModeNavigatePane {
 		dp.paneFocusIndex = index
 		dp.mode = ModeAssign
+	} else {
+		dp.assign(index)
+	}
+}
+
+func (dp *dinnerPlan) assign(targetPaneIndex int) {
+	if dp.paneFocusIndex == targetPaneIndex || targetPaneIndex == 0 {
+		return
+	}
+
+	sourceRecipeList := dp.recipeLists[dp.paneFocusIndex]
+	targetRecipeList := dp.recipeLists[targetPaneIndex]
+
+	if len(sourceRecipeList.Recipes) == 0 {
+		return
+	}
+
+	sourceRecipe := sourceRecipeList.Recipes[sourceRecipeList.SelectedIndex]
+	targetRecipeList.Recipes = append(targetRecipeList.Recipes, sourceRecipe)
+
+	if dp.paneFocusIndex != 0 {
+		sourceRecipeList.Recipes = slices.Delete(sourceRecipeList.Recipes, sourceRecipeList.SelectedIndex, sourceRecipeList.SelectedIndex+1)
+	}
+
+	if sourceRecipeList.SelectedIndex > len(sourceRecipeList.Recipes)-1 {
+		sourceRecipeList.SelectedIndex = len(sourceRecipeList.Recipes) - 1
 	}
 }
 
