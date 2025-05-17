@@ -37,8 +37,11 @@ func (dp dinnerPlan) Init() tea.Cmd {
 }
 
 func (dp dinnerPlan) View() string {
-	if dp.size.width < 10 || dp.size.height < 5 {
-		return "Terminal too small!"
+	if dp.size.width < 50 {
+		return "window is too narrow"
+	}
+	if dp.size.height < 24 {
+		return "window is too short"
 	}
 
 	if dp.mode == ModeHelp {
