@@ -20,7 +20,7 @@ func (dp *dinnerPlan) recipeColumn(size Size) string {
 	return dp.stylePaneBorder(0).
 		Width(size.width).
 		Height(size.height).
-		Render(dp.recipeLists[0].Render(size))
+		Render(dp.recipeLists[0].Render(dp.paneFocusIndex == 0, size))
 }
 
 func (dp *dinnerPlan) dayColumns(size Size) string {
@@ -59,5 +59,5 @@ func (dp *dinnerPlan) dayPane(size Size, dayNum int) string {
 	return dp.stylePaneBorder(dayNum).
 		Width(size.width).
 		Height(dayPaneHeight).
-		Render(dp.recipeLists[dayNum].Render(Size{height: dayPaneHeight, width: size.width}))
+		Render(dp.recipeLists[dayNum].Render(dp.paneFocusIndex == dayNum, Size{height: dayPaneHeight, width: size.width}))
 }

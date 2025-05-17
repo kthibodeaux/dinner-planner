@@ -25,7 +25,7 @@ func NewRecipeList(selectedStyle lipgloss.Style, hotkey string, title string, re
 	}
 }
 
-func (rl *RecipeList) Render(size Size) string {
+func (rl *RecipeList) Render(isActive bool, size Size) string {
 	viewCount := min(size.height-2, len(rl.Recipes))
 
 	recipes := rl.Recipes[rl.Offset:viewCount]
@@ -35,7 +35,7 @@ func (rl *RecipeList) Render(size Size) string {
 		if len(recipes[r].Name) > size.width-4 {
 			name = recipes[r].Name[:size.width-4] + "..."
 		}
-		if r == rl.SelectedIndex {
+		if r == rl.SelectedIndex && isActive {
 			name = rl.SelectedStyle.Render(name)
 		}
 		recipeNames = append(recipeNames, name)
