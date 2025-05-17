@@ -1,6 +1,7 @@
 package planner
 
 import (
+	"slices"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -66,4 +67,22 @@ func (rl *RecipeList) handleUp() {
 	}
 
 	rl.SelectedIndex--
+}
+
+func (rl *RecipeList) remove() {
+	rl.Recipes = slices.Delete(rl.Recipes, rl.SelectedIndex, rl.SelectedIndex+1)
+}
+
+func (rl *RecipeList) add(recipe *recipe.Recipe) {
+	rl.Recipes = append(rl.Recipes, recipe)
+}
+
+func (rl *RecipeList) checkSelectedIndex() {
+	if rl.SelectedIndex > len(rl.Recipes)-1 {
+		rl.SelectedIndex = max(0, len(rl.Recipes)-1)
+	}
+}
+
+func (rl *RecipeList) selectedRecipe() *recipe.Recipe {
+	return rl.Recipes[rl.SelectedIndex]
 }

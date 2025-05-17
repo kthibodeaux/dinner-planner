@@ -1,8 +1,6 @@
 package planner
 
 import (
-	"slices"
-
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/kthibodeaux/dinner-planner/internal/config"
 )
@@ -74,20 +72,16 @@ func (dp *dinnerPlan) assign(targetPaneIndex int) {
 	}
 
 	if targetPaneIndex == 0 {
-		sourceRecipeList.Recipes = slices.Delete(sourceRecipeList.Recipes, sourceRecipeList.SelectedIndex, sourceRecipeList.SelectedIndex+1)
-		return
+		sourceRecipeList.remove()
+	} else {
+		targetRecipeList.add(sourceRecipeList.selectedRecipe())
+
+		if dp.paneFocusIndex != 0 {
+			sourceRecipeList.remove()
+		}
 	}
 
-	sourceRecipe := sourceRecipeList.Recipes[sourceRecipeList.SelectedIndex]
-	targetRecipeList.Recipes = append(targetRecipeList.Recipes, sourceRecipe)
-
-	if dp.paneFocusIndex != 0 {
-		sourceRecipeList.Recipes = slices.Delete(sourceRecipeList.Recipes, sourceRecipeList.SelectedIndex, sourceRecipeList.SelectedIndex+1)
-	}
-
-	if sourceRecipeList.SelectedIndex > len(sourceRecipeList.Recipes)-1 {
-		sourceRecipeList.SelectedIndex = len(sourceRecipeList.Recipes) - 1
-	}
+	sourceRecipeList.checkSelectedIndex()
 }
 
 func (dp *dinnerPlan) handleDown() {
