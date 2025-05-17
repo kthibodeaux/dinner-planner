@@ -61,7 +61,7 @@ func (dp *dinnerPlan) handlePane(index int) {
 }
 
 func (dp *dinnerPlan) assign(targetPaneIndex int) {
-	if dp.paneFocusIndex == targetPaneIndex || targetPaneIndex == 0 {
+	if dp.paneFocusIndex == targetPaneIndex {
 		return
 	}
 
@@ -69,6 +69,11 @@ func (dp *dinnerPlan) assign(targetPaneIndex int) {
 	targetRecipeList := dp.recipeLists[targetPaneIndex]
 
 	if len(sourceRecipeList.Recipes) == 0 {
+		return
+	}
+
+	if targetPaneIndex == 0 {
+		sourceRecipeList.Recipes = slices.Delete(sourceRecipeList.Recipes, sourceRecipeList.SelectedIndex, sourceRecipeList.SelectedIndex+1)
 		return
 	}
 
