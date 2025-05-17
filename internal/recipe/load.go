@@ -8,11 +8,12 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
+	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
-func Load(directory string) ([]*Recipe, error) {
-	entries, err := os.ReadDir(directory)
+func Load() ([]*Recipe, error) {
+	entries, err := os.ReadDir(config.Get().RecipeDirectory)
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +22,7 @@ func Load(directory string) ([]*Recipe, error) {
 
 	for _, entry := range entries {
 		if !entry.IsDir() {
-			recipe, err := parse(filepath.Join(directory, entry.Name()))
+			recipe, err := parse(filepath.Join(config.Get().RecipeDirectory, entry.Name()))
 			if err != nil {
 				log.Printf("Error loading recipe %s: %v", entry.Name(), err)
 			}

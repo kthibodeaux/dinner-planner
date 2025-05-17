@@ -55,7 +55,15 @@ func Run(recipes []*recipe.Recipe, dates []time.Time) {
 		mode:        ModeAssign,
 	}
 
-	dayKeyMap := config.Get().DayKeyMap()
+	dayKeyMap := map[int]string{
+		0: config.Get().Planner.Keys.Day1,
+		1: config.Get().Planner.Keys.Day2,
+		2: config.Get().Planner.Keys.Day3,
+		3: config.Get().Planner.Keys.Day4,
+		4: config.Get().Planner.Keys.Day5,
+		5: config.Get().Planner.Keys.Day6,
+		6: config.Get().Planner.Keys.Day7,
+	}
 
 	mainRecipeList := NewRecipeList(config.Get().Planner.Keys.Recipes, "Recipes", recipes)
 	dinnerPlan.recipeLists[0] = &mainRecipeList

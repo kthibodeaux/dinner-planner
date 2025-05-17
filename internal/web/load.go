@@ -5,8 +5,8 @@ import (
 	"github.com/kthibodeaux/dinner-planner/internal/utils"
 )
 
-func getRecipes(directory string) (map[string]*recipe.Recipe, error) {
-	allRecipes, err := recipe.Load(directory)
+func getRecipes() (map[string]*recipe.Recipe, error) {
+	allRecipes, err := recipe.Load()
 	if err != nil {
 		return nil, err
 	}

@@ -12,7 +12,7 @@ var categories map[string]string
 
 func Serve() error {
 	var err error
-	recipes, err = getRecipes(config.Get().RecipeDirectory)
+	recipes, err = getRecipes()
 	if err != nil {
 		return err
 	}
