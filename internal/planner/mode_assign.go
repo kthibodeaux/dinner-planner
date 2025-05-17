@@ -20,7 +20,7 @@ func (dp *dinnerPlan) recipeColumn(size Size) string {
 	return dp.stylePaneBorder(0).
 		Width(size.width).
 		Height(size.height).
-		Render(dp.stylePaneHeader(dp.keys.Recipes, "Recipes"))
+		Render(dp.recipeLists[0].Render(size))
 }
 
 func (dp *dinnerPlan) dayColumns(size Size) string {
@@ -36,7 +36,7 @@ func (dp *dinnerPlan) dayColumns(size Size) string {
 func (dp *dinnerPlan) daysLeftColumn(size Size) string {
 	days := []string{}
 
-	for _, dayNum := range []int{0, 1, 2, 3} {
+	for _, dayNum := range []int{1, 2, 3, 4} {
 		days = append(days, dp.dayPane(size, dayNum))
 	}
 
@@ -46,18 +46,18 @@ func (dp *dinnerPlan) daysLeftColumn(size Size) string {
 func (dp *dinnerPlan) daysRightColumn(size Size) string {
 	days := []string{}
 
-	for _, dayNum := range []int{4, 5, 6} {
+	for _, dayNum := range []int{5, 6, 7} {
 		days = append(days, dp.dayPane(size, dayNum))
 	}
 
 	return lipgloss.JoinVertical(lipgloss.Left, days...)
 }
 
-func (dp *dinnerPlan) dayPane(size Size, index int) string {
+func (dp *dinnerPlan) dayPane(size Size, dayNum int) string {
 	dayPaneHeight := (dp.size.height / 4) - (borderSize * 2)
 
-	return dp.stylePaneBorder(index + 1).
+	return dp.stylePaneBorder(dayNum).
 		Width(size.width).
 		Height(dayPaneHeight).
-		Render(dp.stylePaneHeader(dp.dayKeyMap[index], dp.dates[index].Format("Monday, January 2")))
+		Render(dp.recipeLists[dayNum].Render(Size{height: dayPaneHeight, width: size.width}))
 }

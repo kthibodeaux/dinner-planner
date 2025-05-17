@@ -18,18 +18,18 @@ func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
 	}
 }
 
-func (dp *dinnerPlan) styleSelected(bold bool) lipgloss.Style {
+func (dp *dinnerPlan) styleSelected() lipgloss.Style {
 	return lipgloss.NewStyle().
 		Foreground(lipgloss.Color(*dp.color)).
-		Bold(bold)
+		Bold(true)
 }
 
-func (dp *dinnerPlan) stylePaneHeader(key string, title string) string {
-	keyInfo := ""
+func (dp *dinnerPlan) styleListItem() lipgloss.Style {
+	return lipgloss.NewStyle().
+		PaddingLeft(4)
+}
 
-	if key != "" {
-		keyInfo = dp.styleSelected(false).Render("[" + key + "] ")
-	}
-
-	return lipgloss.NewStyle().Render(keyInfo + title)
+func (dp *dinnerPlan) styleListItemSelected() lipgloss.Style {
+	return dp.styleListItem().
+		Foreground(lipgloss.Color(*dp.color))
 }

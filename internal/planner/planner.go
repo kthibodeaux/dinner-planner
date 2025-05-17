@@ -23,11 +23,9 @@ type Size struct {
 }
 
 type dinnerPlan struct {
-	color     *string
-	dayKeyMap map[int]string
-	keys      *config.KeyConfig
-	recipes   []*recipe.Recipe
-	dates     []time.Time
+	color       *string
+	keys        *config.KeyConfig
+	recipeLists []*RecipeList
 
 	paneFocusIndex int
 	mode           Mode
@@ -39,6 +37,10 @@ func (dp dinnerPlan) Init() tea.Cmd {
 }
 
 func (dp dinnerPlan) View() string {
+	if dp.size.width < 10 || dp.size.height < 5 {
+		return "Terminal too small!"
+	}
+
 	if dp.mode == ModeHelp {
 		return dp.viewModeHelp()
 	} else {
@@ -47,15 +49,27 @@ func (dp dinnerPlan) View() string {
 }
 
 func Run(config *config.Config, recipes []*recipe.Recipe, dates []time.Time) {
+	dinnerPlan := dinnerPlan{
+		color:       &config.Planner.Color,
+		keys:        &config.Planner.Keys,
+		recipeLists: make([]*RecipeList, 8),
+		mode:        ModeAssign,
+	}
+
+	dayKeyMap := config.DayKeyMap()
+	selectedStyle := dinnerPlan.styleSelected()
+
+	mainRecipeList := NewRecipeList(selectedStyle, dinnerPlan.keys.Recipes, "Recipes", recipes)
+	dinnerPlan.recipeLists[0] = &mainRecipeList
+	for index := range dates {
+		hotkey := dayKeyMap[index]
+		title := dates[index].Format("Monday, January 2")
+		recipeList := NewRecipeList(selectedStyle, hotkey, title, make([]*recipe.Recipe, 0))
+		dinnerPlan.recipeLists[index+1] = &recipeList
+	}
+
 	p := tea.NewProgram(
-		dinnerPlan{
-			color:     &config.Planner.Color,
-			dayKeyMap: config.DayKeyMap(),
-			keys:      &config.Planner.Keys,
-			recipes:   recipes,
-			dates:     dates,
-			mode:      ModeAssign,
-		},
+		dinnerPlan,
 		tea.WithAltScreen(),
 	)
 	p.Run()
