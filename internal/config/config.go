@@ -155,7 +155,7 @@ func loadConfig() (*Config, error) {
 	defaultIfEmpty(&config.Planner.Keys.Day5, "5")
 	defaultIfEmpty(&config.Planner.Keys.Day6, "6")
 	defaultIfEmpty(&config.Planner.Keys.Day7, "7")
-	defaultIfEmpty(&config.Planner.Keys.ShoppingListToggle, " ")
+	defaultIfEmpty(&config.Planner.Keys.ShoppingListToggle, "t")
 
 	return config, nil
 }
