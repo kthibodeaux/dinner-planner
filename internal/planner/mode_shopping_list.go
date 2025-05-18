@@ -5,7 +5,7 @@ import (
 
 	"github.com/charmbracelet/lipgloss"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
-	shoppingList "github.com/kthibodeaux/dinner-planner/internal/shopping_list"
+	shoppingListBuilder "github.com/kthibodeaux/dinner-planner/internal/shopping_list_builder"
 )
 
 func (dp *dinnerPlan) viewModeShoppingList() string {
@@ -51,15 +51,15 @@ func (dp *dinnerPlan) shoppingListShowColumn() string {
 }
 
 func (dp *dinnerPlan) prepareShoppingList() {
-	shoppingListRecipes := make([]*shoppingList.ShoppingListRecipe, 0)
+	shoppingListRecipes := make([]*shoppingListBuilder.ShoppingListBuilderRecipe, 0)
 	for i := 1; i < len(dp.recipeLists); i++ {
 		for _, r := range dp.recipeLists[i].Recipes {
-			slr := shoppingList.NewShoppingList(dp.recipeLists[0].Recipes, []*recipe.Recipe{r})
+			slr := shoppingListBuilder.NewShoppingList(dp.recipeLists[0].Recipes, []*recipe.Recipe{r})
 			shoppingListRecipes = append(shoppingListRecipes, slr...)
 		}
 	}
 
-	dp.shoppingList = &shoppingList.ShoppingList{
+	dp.shoppingList = &shoppingListBuilder.ShoppingListBuilder{
 		ShoppingListRecipes: shoppingListRecipes,
 	}
 }

@@ -1,25 +1,25 @@
-package shoppingList
+package shoppingListBuilder
 
 import (
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
 
-type ShoppingList struct {
+type ShoppingListBuilder struct {
 	SelectedIndex       int
-	ShoppingListRecipes []*ShoppingListRecipe
+	ShoppingListRecipes []*ShoppingListBuilderRecipe
 }
 
-func NewShoppingList(allRecipes []*recipe.Recipe, recipes []*recipe.Recipe) []*ShoppingListRecipe {
-	shoppingListRecipes := make([]*ShoppingListRecipe, 0)
+func NewShoppingList(allRecipes []*recipe.Recipe, recipes []*recipe.Recipe) []*ShoppingListBuilderRecipe {
+	shoppingListRecipes := make([]*ShoppingListBuilderRecipe, 0)
 	for _, recipe := range recipes {
 		shoppingListRecipes = append(shoppingListRecipes, addRecipeAndDependants(allRecipes, recipe, 0)...)
 	}
 	return shoppingListRecipes
 }
 
-func addRecipeAndDependants(allRecipes []*recipe.Recipe, recipe *recipe.Recipe, depth int) []*ShoppingListRecipe {
-	shoppingListRecipes := make([]*ShoppingListRecipe, 0)
-	shoppingListRecipe := ShoppingListRecipe{
+func addRecipeAndDependants(allRecipes []*recipe.Recipe, recipe *recipe.Recipe, depth int) []*ShoppingListBuilderRecipe {
+	shoppingListRecipes := make([]*ShoppingListBuilderRecipe, 0)
+	shoppingListRecipe := ShoppingListBuilderRecipe{
 		Include: true,
 		Depth:   depth,
 		Recipe:  recipe,
@@ -36,20 +36,20 @@ func addRecipeAndDependants(allRecipes []*recipe.Recipe, recipe *recipe.Recipe, 
 	return shoppingListRecipes
 }
 
-func (s *ShoppingList) HandleDown() {
+func (s *ShoppingListBuilder) HandleDown() {
 	if s.SelectedIndex >= len(s.ShoppingListRecipes)-1 {
 		return
 	}
 	s.SelectedIndex++
 }
 
-func (s *ShoppingList) HandleUp() {
+func (s *ShoppingListBuilder) HandleUp() {
 	if s.SelectedIndex <= 0 {
 		return
 	}
 	s.SelectedIndex--
 }
 
-func (s *ShoppingList) Toggle() {
+func (s *ShoppingListBuilder) Toggle() {
 	s.ShoppingListRecipes[s.SelectedIndex].Include = !s.ShoppingListRecipes[s.SelectedIndex].Include
 }

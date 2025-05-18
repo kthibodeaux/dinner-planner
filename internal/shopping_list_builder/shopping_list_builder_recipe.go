@@ -1,4 +1,4 @@
-package shoppingList
+package shoppingListBuilder
 
 import (
 	"fmt"
@@ -9,13 +9,13 @@ import (
 
 const indent = 2
 
-type ShoppingListRecipe struct {
+type ShoppingListBuilderRecipe struct {
 	Include bool
 	Depth   int
 	Recipe  *recipe.Recipe
 }
 
-func (s *ShoppingListRecipe) String() string {
+func (s *ShoppingListBuilderRecipe) String() string {
 	selectionMarker := " "
 	if s.Include {
 		selectionMarker = "x"
@@ -26,15 +26,15 @@ func (s *ShoppingListRecipe) String() string {
 	return prefix + s.Recipe.Name
 }
 
-func (s *ShoppingListRecipe) dependentRecipes(allRecipes []*recipe.Recipe) []*ShoppingListRecipe {
-	dependencies := make([]*ShoppingListRecipe, 0)
+func (s *ShoppingListBuilderRecipe) dependentRecipes(allRecipes []*recipe.Recipe) []*ShoppingListBuilderRecipe {
+	dependencies := make([]*ShoppingListBuilderRecipe, 0)
 
 	for _, part := range s.Recipe.Parts {
 		for _, ingredient := range part.Ingredients {
 			if ingredient.RecipeID != "" {
 				for _, recipe := range allRecipes {
 					if recipe.ID == ingredient.RecipeID {
-						shoppingListRecipe := &ShoppingListRecipe{
+						shoppingListRecipe := &ShoppingListBuilderRecipe{
 							Include: true,
 							Depth:   s.Depth + 1,
 							Recipe:  recipe,
