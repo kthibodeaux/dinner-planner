@@ -18,7 +18,7 @@ func (dp *dinnerPlan) viewModeShoppingList() string {
 }
 
 func (dp *dinnerPlan) shoppingListSelectColumn() string {
-	title := styleSelected.Render("Shopping List")
+	title := "Shopping List"
 	header := lipgloss.NewStyle().Render(title + "\n")
 
 	content := make([]string, 0)
