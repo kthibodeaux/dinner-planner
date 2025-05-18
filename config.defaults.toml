@@ -8,6 +8,9 @@ color = "#3A5B7E"
 first_day_of_week = "sunday"
 scroll_offset = 3
 scroll_amount = 15
+ignore_ingredients = [
+  "water",
+]
 
 [planner.keys]
 quit = "ctrl+c"

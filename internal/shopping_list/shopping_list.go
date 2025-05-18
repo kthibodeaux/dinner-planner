@@ -4,6 +4,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
 
@@ -17,16 +18,18 @@ func NewShoppingList(recipes []*recipe.Recipe) []string {
 		for _, part := range recipe.Parts {
 			for _, ingredient := range part.Ingredients {
 				key := strings.ToLower(ingredient.Name)
-				if _, exists := list[key]; !exists {
-					list[key] = make(quantities, 0)
-				}
-
-				quantity := ingredient.Quantity
-				if quantity != "" {
-					if ingredient.Unit != "" {
-						quantity += " " + ingredient.Unit
+				if !slices.Contains(config.Get().Planner.IgnoreIngredients, key) {
+					if _, exists := list[key]; !exists {
+						list[key] = make(quantities, 0)
 					}
-					list[key] = append(list[key], quantity)
+
+					quantity := ingredient.Quantity
+					if quantity != "" {
+						if ingredient.Unit != "" {
+							quantity += " " + ingredient.Unit
+						}
+						list[key] = append(list[key], quantity)
+					}
 				}
 			}
 		}

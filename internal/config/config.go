@@ -22,11 +22,12 @@ type Config struct {
 }
 
 type PlannerConfig struct {
-	Color          string    `toml:"color"`
-	FirstDayOfWeek string    `toml:"first_day_of_week"`
-	Keys           KeyConfig `toml:"keys"`
-	ScrollOffset   int       `toml:"scroll_offset"`
-	ScrollAmount   int       `toml:"scroll_amount"`
+	Color             string    `toml:"color"`
+	FirstDayOfWeek    string    `toml:"first_day_of_week"`
+	IgnoreIngredients []string  `toml:"ignore_ingredients"`
+	Keys              KeyConfig `toml:"keys"`
+	ScrollOffset      int       `toml:"scroll_offset"`
+	ScrollAmount      int       `toml:"scroll_amount"`
 }
 
 type KeyConfig struct {
@@ -132,6 +133,10 @@ func loadConfig() (*Config, error) {
 
 	defaultIntIfEmpty(&config.Planner.ScrollOffset, 3)
 	defaultIntIfEmpty(&config.Planner.ScrollAmount, 15)
+
+	if len(config.Planner.IgnoreIngredients) == 0 {
+		config.Planner.IgnoreIngredients = append(config.Planner.IgnoreIngredients, "water")
+	}
 
 	defaultIfEmpty(&config.Planner.Keys.Quit, "ctrl+c")
 	defaultIfEmpty(&config.Planner.Keys.MainView, "q")
