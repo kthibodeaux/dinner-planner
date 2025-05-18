@@ -11,6 +11,8 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case config.Get().Planner.Keys.Help:
 			dp.mode = ModeHelp
+		case config.Get().Planner.Keys.ShoppingList:
+			dp.mode = ModeShoppingList
 		case config.Get().Planner.Keys.MainView:
 			dp.mode = ModeAssign
 		case config.Get().Planner.Keys.Focus:

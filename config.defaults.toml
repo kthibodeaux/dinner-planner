@@ -13,6 +13,7 @@ scroll_amount = 15
 quit = "ctrl+c"
 main_view = "q" # ie close help
 help = "h"
+shopping_list = "s"
 focus = "f"
 recipes = "0"
 down = "j"

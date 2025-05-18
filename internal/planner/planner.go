@@ -15,6 +15,7 @@ const (
 	ModeAssign Mode = iota
 	ModeHelp
 	ModeNavigatePane
+	ModeShoppingList
 )
 
 type Size struct {
@@ -44,6 +45,8 @@ func (dp dinnerPlan) View() string {
 
 	if dp.mode == ModeHelp {
 		return dp.viewModeHelp()
+	} else if dp.mode == ModeShoppingList {
+		return dp.viewModeShoppingList()
 	} else {
 		return dp.viewModeAssign()
 	}
