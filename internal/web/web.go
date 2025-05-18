@@ -3,15 +3,16 @@ package web
 import (
 	"net/http"
 
+	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
 
 var recipes map[string]*recipe.Recipe
 var categories map[string]string
 
-func Serve(directory string, port string) error {
+func Serve() error {
 	var err error
-	recipes, err = getRecipes(directory)
+	recipes, err = getRecipes()
 	if err != nil {
 		return err
 	}
@@ -26,6 +27,6 @@ func Serve(directory string, port string) error {
 	mux.HandleFunc("GET /categories/{id}", categoryHandler)
 	mux.HandleFunc("GET /recipes/{id}", recipeHandler)
 
-	err = http.ListenAndServe(port, mux)
+	err = http.ListenAndServe(config.Get().Web.Port, mux)
 	return err
 }

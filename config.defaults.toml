@@ -6,6 +6,8 @@ port = "8080"
 [planner]
 color = "#3A5B7E"
 first_day_of_week = "sunday"
+scroll_offset = 3
+scroll_amount = 15
 
 [planner.keys]
 quit = "ctrl+c"
@@ -13,6 +15,10 @@ main_view = "q" # ie close help
 help = "h"
 focus = "f"
 recipes = "0"
+down = "j"
+up = "k"
+scroll_down="ctrl+d"
+scroll_up="ctrl+u"
 day_1 = "1"
 day_2 = "2"
 day_3 = "3"

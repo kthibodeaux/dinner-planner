@@ -23,15 +23,11 @@ type Size struct {
 }
 
 type dinnerPlan struct {
-	color     *string
-	dayKeyMap map[int]string
-	keys      *config.KeyConfig
-	recipes   []*recipe.Recipe
-	dates     []time.Time
+	recipeLists []*RecipeList
 
-	focusIndex int
-	mode       Mode
-	size       Size
+	paneFocusIndex int
+	mode           Mode
+	size           Size
 }
 
 func (dp dinnerPlan) Init() tea.Cmd {
@@ -39,6 +35,13 @@ func (dp dinnerPlan) Init() tea.Cmd {
 }
 
 func (dp dinnerPlan) View() string {
+	if dp.size.width < 50 {
+		return "window is too narrow"
+	}
+	if dp.size.height < 24 {
+		return "window is too short"
+	}
+
 	if dp.mode == ModeHelp {
 		return dp.viewModeHelp()
 	} else {
@@ -46,16 +49,33 @@ func (dp dinnerPlan) View() string {
 	}
 }
 
-func Run(config *config.Config, recipes []*recipe.Recipe, dates []time.Time) {
+func Run(recipes []*recipe.Recipe, dates []time.Time) {
+	dinnerPlan := dinnerPlan{
+		recipeLists: make([]*RecipeList, 8),
+		mode:        ModeAssign,
+	}
+
+	dayKeyMap := map[int]string{
+		0: config.Get().Planner.Keys.Day1,
+		1: config.Get().Planner.Keys.Day2,
+		2: config.Get().Planner.Keys.Day3,
+		3: config.Get().Planner.Keys.Day4,
+		4: config.Get().Planner.Keys.Day5,
+		5: config.Get().Planner.Keys.Day6,
+		6: config.Get().Planner.Keys.Day7,
+	}
+
+	mainRecipeList := NewRecipeList(config.Get().Planner.Keys.Recipes, "Recipes", recipes)
+	dinnerPlan.recipeLists[0] = &mainRecipeList
+	for index := range dates {
+		hotkey := dayKeyMap[index]
+		title := dates[index].Format("Monday, January 2")
+		recipeList := NewRecipeList(hotkey, title, make([]*recipe.Recipe, 0))
+		dinnerPlan.recipeLists[index+1] = &recipeList
+	}
+
 	p := tea.NewProgram(
-		dinnerPlan{
-			color:     &config.Planner.Color,
-			dayKeyMap: config.DayKeyMap(),
-			keys:      &config.Planner.Keys,
-			recipes:   recipes,
-			dates:     dates,
-			mode:      ModeAssign,
-		},
+		dinnerPlan,
 		tea.WithAltScreen(),
 	)
 	p.Run()

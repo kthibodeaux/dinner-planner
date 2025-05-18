@@ -10,26 +10,21 @@ import (
 )
 
 func main() {
-	config, err := config.LoadConfig()
+	recipes, err := recipe.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	recipes, err := recipe.Load(config.RecipeDirectory)
+	dates, err := datesForWeekStartingOn()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	dates, err := datesForWeekStartingOn(config.StartDate)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	planner.Run(config, recipes, dates)
+	planner.Run(recipes, dates)
 }
 
-func datesForWeekStartingOn(startDate string) ([]time.Time, error) {
-	date, err := time.Parse("2006-01-02", startDate)
+func datesForWeekStartingOn() ([]time.Time, error) {
+	date, err := time.Parse("2006-01-02", config.Get().StartDate)
 	if err != nil {
 		return nil, err
 	}
