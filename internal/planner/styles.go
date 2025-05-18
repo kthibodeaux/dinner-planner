@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	borderForce = -1
-	borderSize  = 1
+	borderForce       = -1
+	borderForceHidden = -2
+	borderSize        = 1
 
 	styleSelected = lipgloss.NewStyle().
 			Foreground(lipgloss.Color(config.Get().Planner.Color)).
@@ -15,7 +16,7 @@ var (
 )
 
 func (dp *dinnerPlan) stylePaneBorder(index int) lipgloss.Style {
-	if index == dp.paneFocusIndex || index == borderForce {
+	if (index == dp.paneFocusIndex || index == borderForce) && index != borderForceHidden {
 		return lipgloss.NewStyle().
 			Border(lipgloss.ThickBorder()).
 			BorderForeground(lipgloss.Color(config.Get().Planner.Color))

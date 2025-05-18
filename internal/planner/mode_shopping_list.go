@@ -9,12 +9,19 @@ import (
 )
 
 func (dp *dinnerPlan) viewModeShoppingList() string {
+	return lipgloss.JoinHorizontal(
+		lipgloss.Top,
+		dp.shoppingListSelectColumn(),
+		dp.shoppingListShowColumn(),
+	)
+}
+
+func (dp *dinnerPlan) shoppingListSelectColumn() string {
 	title := styleSelected.Render("Shopping List")
 	header := lipgloss.NewStyle().Render(title + "\n")
 
 	content := make([]string, 0)
 	content = append(content, header)
-
 	for i, slr := range dp.shoppingList.ShoppingListRecipes {
 		if i == dp.shoppingList.SelectedIndex {
 			content = append(content, styleSelected.Render(slr.String()))
@@ -24,7 +31,21 @@ func (dp *dinnerPlan) viewModeShoppingList() string {
 	}
 
 	return dp.stylePaneBorder(borderForce).
-		Width(dp.size.width).
+		Width(dp.size.width/2 - 2).
+		Height(dp.size.height - 2).
+		Render(strings.Join(content, "\n"))
+}
+
+func (dp *dinnerPlan) shoppingListShowColumn() string {
+	content := make([]string, 0)
+	for _, slr := range dp.shoppingList.ShoppingListRecipes {
+		if slr.Include {
+			content = append(content, "* "+slr.Recipe.Name)
+		}
+	}
+
+	return dp.stylePaneBorder(borderForceHidden).
+		Width(dp.size.width/2 - 2).
 		Height(dp.size.height - 2).
 		Render(strings.Join(content, "\n"))
 }
