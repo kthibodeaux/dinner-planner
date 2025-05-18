@@ -8,11 +8,15 @@ color = "#3A5B7E"
 first_day_of_week = "sunday"
 scroll_offset = 3
 scroll_amount = 15
+ignore_ingredients = [
+  "water",
+]
 
 [planner.keys]
 quit = "ctrl+c"
 main_view = "q" # ie close help
 help = "h"
+shopping_list = "s"
 focus = "f"
 recipes = "0"
 down = "j"
@@ -26,3 +30,4 @@ day_4 = "4"
 day_5 = "5"
 day_6 = "6"
 day_7 = "7"
+shopping_list_toggle = " "

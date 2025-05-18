@@ -7,6 +7,7 @@ import (
 
 	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	shoppingListBuilder "github.com/kthibodeaux/dinner-planner/internal/shopping_list_builder"
 )
 
 type Mode int
@@ -15,6 +16,7 @@ const (
 	ModeAssign Mode = iota
 	ModeHelp
 	ModeNavigatePane
+	ModeShoppingList
 )
 
 type Size struct {
@@ -23,7 +25,8 @@ type Size struct {
 }
 
 type dinnerPlan struct {
-	recipeLists []*RecipeList
+	recipeLists  []*RecipeList
+	shoppingList *shoppingListBuilder.ShoppingListBuilder
 
 	paneFocusIndex int
 	mode           Mode
@@ -44,6 +47,8 @@ func (dp dinnerPlan) View() string {
 
 	if dp.mode == ModeHelp {
 		return dp.viewModeHelp()
+	} else if dp.mode == ModeShoppingList {
+		return dp.viewModeShoppingList()
 	} else {
 		return dp.viewModeAssign()
 	}

@@ -11,6 +11,9 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case config.Get().Planner.Keys.Help:
 			dp.mode = ModeHelp
+		case config.Get().Planner.Keys.ShoppingList:
+			dp.prepareShoppingList()
+			dp.mode = ModeShoppingList
 		case config.Get().Planner.Keys.MainView:
 			dp.mode = ModeAssign
 		case config.Get().Planner.Keys.Focus:
@@ -39,6 +42,8 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			dp.handleDown(true)
 		case config.Get().Planner.Keys.ScrollUp:
 			dp.handleUp(true)
+		case config.Get().Planner.Keys.ShoppingListToggle:
+			dp.shoppingList.Toggle()
 		case config.Get().Planner.Keys.Quit:
 			return dp.quit()
 		}
@@ -89,9 +94,17 @@ func (dp *dinnerPlan) assign(targetPaneIndex int) {
 }
 
 func (dp *dinnerPlan) handleDown(isScroll bool) {
-	dp.recipeLists[dp.paneFocusIndex].handleDown(isScroll)
+	if dp.mode == ModeShoppingList {
+		dp.shoppingList.HandleDown()
+	} else {
+		dp.recipeLists[dp.paneFocusIndex].handleDown(isScroll)
+	}
 }
 
 func (dp *dinnerPlan) handleUp(isScroll bool) {
-	dp.recipeLists[dp.paneFocusIndex].handleUp(isScroll)
+	if dp.mode == ModeShoppingList {
+		dp.shoppingList.HandleUp()
+	} else {
+		dp.recipeLists[dp.paneFocusIndex].handleUp(isScroll)
+	}
 }

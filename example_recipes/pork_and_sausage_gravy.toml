@@ -1,25 +1,23 @@
-category = "Entrees"
 name = "Pork and Sausage Gravy"
+category = "Entrees"
+include_in_cookbook = true
 
 [[parts]]
-prep_time = 10
-cook_time = 135
-
 ingredients = [
-  { name = "Pork Roast (cubed)", quantity = "1", unit = "lb" },
-  { name = "Sausage (sliced)", quantity = "1/2", unit = "lb" },
-  { name = "Yellow Onion (finely chopped)", quantity = "1", unit = "medium" },
-  { name = "Bell Pepper (finely chopped)", quantity = "1", unit = "medium" },
-  { name = "Celery (stalks - finely chopped)", unit = "2" },
-  { name = "Green Onion (chopped)", quantity = "1", unit = "cup" },
-  { name = "Potato (cubed)", quantity = "3", unit = "large" },
-  { name = "Cajun Seasoning", quantity = "1", unit = "Tbsp" },
-  { name = "Kosher Salt", quantity = "1", unit = "tsp" },
-  { name = "Black Pepper", quantity = "1", unit = "tsp" },
-  { name = "Paprika", quantity = "1", unit = "tsp" },
-  { name = "Dried Thyme", quantity = "1", unit = "tsp" },
-  { name = "Better Than Boullion (Roasted Chicken)", quantity = "4", unit = "tsp" },
-  { name = "Water", quantity = "4", unit = "cup" },
+  { quantity = "1", unit = "lb", name = "Pork Roast", note = "cubed" },
+  { quantity = "1/2", unit = "lb", name = "Sausage", note = "sliced" },
+  { quantity = "1", unit = "medium", name = "Yellow Onion", note = "finely chopped" },
+  { quantity = "1", unit = "medium", name = "Bell Pepper", note = "finely chopped" },
+  { quantity = "2", name = "Celery", note = "stalks - finely chopped" },
+  { quantity = "1", unit = "cup", name = "Green Onion", note = "chopped" },
+  { quantity = "3", unit = "large", name = "Potato", note = "cubed" },
+  { quantity = "1", unit = "Tbsp", name = "Cajun Seasoning" },
+  { quantity = "1", unit = "tsp", name = "Kosher Salt" },
+  { quantity = "1", unit = "tsp", name = "Black Pepper" },
+  { quantity = "1", unit = "tsp", name = "Paprika" },
+  { quantity = "1", unit = "tsp", name = "Dried Thyme" },
+  { quantity = "4", unit = "cup", name = "Chicken Stock" },
+  { name = "Water" }
 ]
 
 steps = [
