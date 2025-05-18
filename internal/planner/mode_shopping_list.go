@@ -5,6 +5,7 @@ import (
 
 	"github.com/charmbracelet/lipgloss"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	shoppingList "github.com/kthibodeaux/dinner-planner/internal/shopping_list"
 	shoppingListBuilder "github.com/kthibodeaux/dinner-planner/internal/shopping_list_builder"
 )
 
@@ -37,17 +38,19 @@ func (dp *dinnerPlan) shoppingListSelectColumn() string {
 }
 
 func (dp *dinnerPlan) shoppingListShowColumn() string {
-	content := make([]string, 0)
+	recipes := make([]*recipe.Recipe, 0)
 	for _, slr := range dp.shoppingList.ShoppingListRecipes {
 		if slr.Include {
-			content = append(content, "* "+slr.Recipe.Name)
+			recipes = append(recipes, slr.Recipe)
 		}
 	}
+
+	list := shoppingList.NewShoppingList(recipes)
 
 	return dp.stylePaneBorder(borderForceHidden).
 		Width(dp.size.width/2 - 2).
 		Height(dp.size.height - 2).
-		Render(strings.Join(content, "\n"))
+		Render(strings.Join(list, "\n"))
 }
 
 func (dp *dinnerPlan) prepareShoppingList() {
