@@ -6,56 +6,53 @@ source = "https://www.youtube.com/watch?v=ESqF6CW91UQ"
 [[parts]]
 name = "Chicken"
 ingredients = [
-  { name = "boneless/skinless chicken thighs", quantity = "2", unit = "lbs" },
-  { name = "kosher salt", quantity = "1", unit = "Tbsp" },
-  { name = "garlic (minced)", quantity = "3", unit = "cloves" },
-  { name = "minced ginger", quantity = "2", unit = "Tbsp" },
-  { name = "lemon juice", quantity = "1/2", unit = "Tbsp" },
-  { name = "garam masala", quantity = "1", unit = "tsp" },
-  { name = "paprika", quantity = "1", unit = "Tbsp" },
-  { name = "greek yogurt", quantity = "3/4", unit = "cup" },
-  { name = "canola oil", quantity = "25", unit = "g" },
+  { quantity = "2lbs", name = "boneless/skinless chicken thighs" },
+  { quantity = "1", unit = "Tbsp", name = "kosher salt" },
+  { quantity = "3", unit = "cloves", name = "grated garlic" },
+  { quantity = "2", unit = "Tbsp", name = "grated ginger" },
+  { quantity = "1/2", unit = "Tbsp", name = "lemon juice" },
+  { quantity = "1", unit = "tsp", name = "garam masala" },
+  { quantity = "1", unit = "Tbsp", name = "paprika" },
+  { quantity = "3/4", unit = "cup", name = "greek yogurt" },
+  { quantity = "25", unit = "g", name = "canola oil" },
 ]
 
 steps = [
-  "Combine and marinade for a half hour.",
-  "Preheat over to 450F and bake until internal temp is 165F.",
-  "Broil with each side facing up until a little charred.",
+  "do stuff",
 ]
 
 [[parts]]
 name = "Sauce"
 
 ingredients = [
-  { unit = "extra virgin olive oil" },
-  { name = "white onion (diced)", quantity = "1", unit = "small" },
-  { name = "pablano pepper (diced)", quantity = "1", unit = "small" },
-  { name = "white onion", quantity = "1", unit = "small" },
-  { name = "kosher salt", unit = "large pinch" },
-  { name = "Minced Ginger", quantity = "2", unit = "Tbsp" },
-  { name = "Minced Garlic", quantity = "3", unit = "cloves" },
-  { name = "garam masala", quantity = "1", unit = "Tbsp" },
-  { name = "turmeric", quantity = "1", unit = "Tbsp" },
-  { name = "cumin", quantity = "1", unit = "Tbsp" },
-  { name = "coriander", quantity = "1", unit = "Tbsp" },
-  { name = "paprika", quantity = "1", unit = "Tbsp" },
-  { name = "kosher salt", quantity = "2", unit = "tsp" },
-  { name = "tomato paste", quantity = "6", unit = "oz" },
-  { name = "water", quantity = "1", unit = "3/4 cup" },
-  { name = "sugar", quantity = "2", unit = "tsp" },
-  { name = "coconut milk", quantity = "1", unit = "cup" },
-  { name = "vegan butter", quantity = "3", unit = "Tbsp" },
+  { name = "Extra Virgin Olive Oil" },
+  { quantity = "1", name = "White Onion", note = "small diced" },
+  { quantity = "1", name = "Poblano Pepper", note = "seeded and small diced" },
+  { name = "large pinch salt" },
+  { quantity = "2", unit = "Tbsp", name = "Minced Ginger" },
+  { quantity = "3", unit = "cloves", name = "Minced Garlic" },
+  { quantity = "1", unit = "Tbsp", name = "garam masala" },
+  { quantity = "1", unit = "Tbsp", name = "turmeric" },
+  { quantity = "1", unit = "Tbsp", name = "cumin" },
+  { quantity = "1", unit = "Tbsp", name = "coriander" },
+  { quantity = "1", unit = "Tbsp", name = "paprika" },
+  { quantity = "2", unit = "tsp", name = "kosher salt" },
+  { quantity = "6", unit = "oz", name = "tomato paste" },
+  { quantity = "1 3/4", unit = "cup", name = "water" },
+  { quantity = "2", unit = "tsp", name = "sugar" },
+  { quantity = "1", unit = "cup", name = "coconut milk" },
+  { quantity = "3", unit = "Tbsp", name = "vegan butter" },
 ]
 
 steps = [
-  "Do things!",
+  "do stuff",
 ]
 
 [[parts]]
 name = "Garnish"
 
 ingredients = [
-  { name = "greek yogurt", quantity = "1/2", unit = "cup" },
-  { name = "coconut milk", quantity = "1/2", unit = "cup" },
-  { name = "salt", quantity = "1/2", unit = "tsp" },
+  { quantity = "1/2", unit = "cup", name = "greek yogurt" },
+  { quantity = "1/2", unit = "cup", name = "coconut milk" },
+  { quantity = "1/2", unit = "tsp", name = "salt" },
 ]
