@@ -4,6 +4,8 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
+	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	shoppingList "github.com/kthibodeaux/dinner-planner/internal/shopping_list"
 )
 
 func (dp *dinnerPlan) viewModeShoppingList() string {
@@ -13,8 +15,30 @@ func (dp *dinnerPlan) viewModeShoppingList() string {
 	content := make([]string, 0)
 	content = append(content, header)
 
+	for i, slr := range dp.shoppingList.ShoppingListRecipes {
+		if i == dp.shoppingList.SelectedIndex {
+			content = append(content, styleSelected.Render(slr.String()))
+		} else {
+			content = append(content, slr.String())
+		}
+	}
+
 	return dp.stylePaneBorder(borderForce).
 		Width(dp.size.width).
 		Height(dp.size.height - 2).
 		Render(strings.Join(content, "\n"))
+}
+
+func (dp *dinnerPlan) prepareShoppingList() {
+	shoppingListRecipes := make([]*shoppingList.ShoppingListRecipe, 0)
+	for i := 1; i < len(dp.recipeLists); i++ {
+		for _, r := range dp.recipeLists[i].Recipes {
+			slr := shoppingList.NewShoppingList(dp.recipeLists[0].Recipes, []*recipe.Recipe{r})
+			shoppingListRecipes = append(shoppingListRecipes, slr...)
+		}
+	}
+
+	dp.shoppingList = &shoppingList.ShoppingList{
+		ShoppingListRecipes: shoppingListRecipes,
+	}
 }

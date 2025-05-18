@@ -7,6 +7,7 @@ import (
 
 	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
+	shoppingList "github.com/kthibodeaux/dinner-planner/internal/shopping_list"
 )
 
 type Mode int
@@ -24,7 +25,8 @@ type Size struct {
 }
 
 type dinnerPlan struct {
-	recipeLists []*RecipeList
+	recipeLists  []*RecipeList
+	shoppingList *shoppingList.ShoppingList
 
 	paneFocusIndex int
 	mode           Mode
