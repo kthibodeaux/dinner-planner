@@ -8,12 +8,15 @@ import (
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
 
+const scrollMargin = 3
+
 type RecipeList struct {
 	Hotkey        string
 	Offset        int
 	Recipes       []*recipe.Recipe
 	SelectedIndex int
 	Title         string
+	ViewCount     int
 }
 
 func NewRecipeList(hotkey string, title string, recipes []*recipe.Recipe) RecipeList {
@@ -25,25 +28,28 @@ func NewRecipeList(hotkey string, title string, recipes []*recipe.Recipe) Recipe
 }
 
 func (rl *RecipeList) Render(isActive bool, size Size) string {
-	viewCount := min(size.height-2, len(rl.Recipes))
+	rl.ViewCount = min(size.height-2, len(rl.Recipes))
 
-	recipes := rl.Recipes[rl.Offset:viewCount]
+	end := min(rl.Offset+rl.ViewCount, len(rl.Recipes))
+	recipes := rl.Recipes[rl.Offset:end]
 	recipeNames := make([]string, 0)
-	for r := range recipes {
-		name := recipes[r].Name
-		if len(recipes[r].Name) > size.width-4 {
-			name = recipes[r].Name[:size.width-4] + "..."
+
+	for i, r := range recipes {
+		name := r.Name
+		if len(name) > size.width-4 {
+			name = name[:size.width-4] + "..."
 		}
-		if r == rl.SelectedIndex && isActive {
+		actualIndex := rl.Offset + i
+		if actualIndex == rl.SelectedIndex && isActive {
 			name = styleSelected.Render(name)
 		}
 		recipeNames = append(recipeNames, name)
 	}
 
-	return rl.RenderHeader() + strings.Join(recipeNames, "\n")
+	return rl.renderHeader() + strings.Join(recipeNames, "\n")
 }
 
-func (rl *RecipeList) RenderHeader() string {
+func (rl *RecipeList) renderHeader() string {
 	keyInfo := ""
 
 	if rl.Hotkey != "" {
@@ -57,16 +63,26 @@ func (rl *RecipeList) handleDown() {
 	if rl.SelectedIndex >= len(rl.Recipes)-1 {
 		return
 	}
-
 	rl.SelectedIndex++
+	rl.setVisible()
 }
 
 func (rl *RecipeList) handleUp() {
-	if rl.SelectedIndex == 0 {
+	if rl.SelectedIndex <= 0 {
 		return
 	}
-
 	rl.SelectedIndex--
+	rl.setVisible()
+}
+
+func (rl *RecipeList) setVisible() {
+	if rl.SelectedIndex < rl.Offset+scrollMargin {
+		rl.Offset = max(0, rl.SelectedIndex-scrollMargin)
+	}
+
+	if rl.SelectedIndex >= rl.Offset+rl.ViewCount-scrollMargin {
+		rl.Offset = max(min(rl.SelectedIndex-(rl.ViewCount-scrollMargin-1), len(rl.Recipes)-rl.ViewCount), 0)
+	}
 }
 
 func (rl *RecipeList) remove() {
