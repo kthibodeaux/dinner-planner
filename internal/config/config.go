@@ -25,23 +25,27 @@ type PlannerConfig struct {
 	Color          string    `toml:"color"`
 	FirstDayOfWeek string    `toml:"first_day_of_week"`
 	Keys           KeyConfig `toml:"keys"`
+	ScrollOffset   int       `toml:"scroll_offset"`
+	ScrollAmount   int       `toml:"scroll_amount"`
 }
 
 type KeyConfig struct {
-	MainView string `toml:"main_view"`
-	Focus    string `toml:"focus"`
-	Help     string `toml:"help"`
-	Recipes  string `toml:"recipes"`
-	Down     string `toml:"down"`
-	Up       string `toml:"up"`
-	Day1     string `toml:"day_1"`
-	Day2     string `toml:"day_2"`
-	Day3     string `toml:"day_3"`
-	Day4     string `toml:"day_4"`
-	Day5     string `toml:"day_5"`
-	Day6     string `toml:"day_6"`
-	Day7     string `toml:"day_7"`
-	Quit     string `toml:"quit"`
+	MainView   string `toml:"main_view"`
+	Focus      string `toml:"focus"`
+	Help       string `toml:"help"`
+	Recipes    string `toml:"recipes"`
+	Down       string `toml:"down"`
+	Up         string `toml:"up"`
+	ScrollDown string `toml:"scroll_down"`
+	ScrollUp   string `toml:"scroll_up"`
+	Day1       string `toml:"day_1"`
+	Day2       string `toml:"day_2"`
+	Day3       string `toml:"day_3"`
+	Day4       string `toml:"day_4"`
+	Day5       string `toml:"day_5"`
+	Day6       string `toml:"day_6"`
+	Day7       string `toml:"day_7"`
+	Quit       string `toml:"quit"`
 }
 
 type WebConfig struct {
@@ -124,6 +128,9 @@ func loadConfig() (*Config, error) {
 		config.Web.Port = ":" + config.Web.Port
 	}
 
+	defaultIntIfEmpty(&config.Planner.ScrollOffset, 3)
+	defaultIntIfEmpty(&config.Planner.ScrollAmount, 15)
+
 	defaultIfEmpty(&config.Planner.Keys.Quit, "ctrl+c")
 	defaultIfEmpty(&config.Planner.Keys.MainView, "q")
 	defaultIfEmpty(&config.Planner.Keys.Focus, "f")
@@ -131,6 +138,8 @@ func loadConfig() (*Config, error) {
 	defaultIfEmpty(&config.Planner.Keys.Recipes, "0")
 	defaultIfEmpty(&config.Planner.Keys.Down, "j")
 	defaultIfEmpty(&config.Planner.Keys.Up, "k")
+	defaultIfEmpty(&config.Planner.Keys.ScrollDown, "ctrl+d")
+	defaultIfEmpty(&config.Planner.Keys.ScrollUp, "ctrl+u")
 	defaultIfEmpty(&config.Planner.Keys.Day1, "1")
 	defaultIfEmpty(&config.Planner.Keys.Day2, "2")
 	defaultIfEmpty(&config.Planner.Keys.Day3, "3")
@@ -194,6 +203,12 @@ func startOfWeek(currentDate time.Time, weekdayName string) (string, error) {
 
 func defaultIfEmpty(val *string, def string) {
 	if *val == "" {
+		*val = def
+	}
+}
+
+func defaultIntIfEmpty(val *int, def int) {
+	if *val == 0 {
 		*val = def
 	}
 }

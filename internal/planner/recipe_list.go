@@ -5,10 +5,9 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
+	"github.com/kthibodeaux/dinner-planner/internal/config"
 	"github.com/kthibodeaux/dinner-planner/internal/recipe"
 )
-
-const scrollMargin = 3
 
 type RecipeList struct {
 	Hotkey        string
@@ -59,29 +58,55 @@ func (rl *RecipeList) renderHeader() string {
 	return lipgloss.NewStyle().Render(keyInfo + rl.Title + "\n\n")
 }
 
-func (rl *RecipeList) handleDown() {
+func (rl *RecipeList) handleDown(isScroll bool) {
 	if rl.SelectedIndex >= len(rl.Recipes)-1 {
 		return
 	}
-	rl.SelectedIndex++
+
+	if isScroll {
+		if rl.SelectedIndex+rl.scrollAmount() >= len(rl.Recipes) {
+			rl.SelectedIndex = len(rl.Recipes) - 1
+		} else {
+			rl.SelectedIndex += rl.scrollAmount()
+		}
+	} else {
+		rl.SelectedIndex++
+	}
 	rl.setVisible()
 }
 
-func (rl *RecipeList) handleUp() {
+func (rl *RecipeList) handleUp(isScroll bool) {
 	if rl.SelectedIndex <= 0 {
 		return
 	}
-	rl.SelectedIndex--
+
+	if isScroll {
+		if rl.SelectedIndex-rl.scrollAmount() < 0 {
+			rl.SelectedIndex = 0
+		} else {
+			rl.SelectedIndex -= rl.scrollAmount()
+		}
+	} else {
+		rl.SelectedIndex--
+	}
 	rl.setVisible()
 }
 
+func (rl *RecipeList) scrollAmount() int {
+	if rl.ViewCount < config.Get().Planner.ScrollAmount {
+		return rl.ViewCount - 2
+	} else {
+		return config.Get().Planner.ScrollAmount
+	}
+}
+
 func (rl *RecipeList) setVisible() {
-	if rl.SelectedIndex < rl.Offset+scrollMargin {
-		rl.Offset = max(0, rl.SelectedIndex-scrollMargin)
+	if rl.SelectedIndex < rl.Offset+config.Get().Planner.ScrollOffset {
+		rl.Offset = max(0, rl.SelectedIndex-config.Get().Planner.ScrollOffset)
 	}
 
-	if rl.SelectedIndex >= rl.Offset+rl.ViewCount-scrollMargin {
-		rl.Offset = max(min(rl.SelectedIndex-(rl.ViewCount-scrollMargin-1), len(rl.Recipes)-rl.ViewCount), 0)
+	if rl.SelectedIndex >= rl.Offset+rl.ViewCount-config.Get().Planner.ScrollOffset {
+		rl.Offset = max(min(rl.SelectedIndex-(rl.ViewCount-config.Get().Planner.ScrollOffset-1), len(rl.Recipes)-rl.ViewCount), 0)
 	}
 }
 

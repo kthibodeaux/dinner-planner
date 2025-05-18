@@ -32,9 +32,13 @@ func (dp dinnerPlan) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case config.Get().Planner.Keys.Day7:
 			dp.handlePane(7)
 		case config.Get().Planner.Keys.Down:
-			dp.handleDown()
+			dp.handleDown(false)
 		case config.Get().Planner.Keys.Up:
-			dp.handleUp()
+			dp.handleUp(false)
+		case config.Get().Planner.Keys.ScrollDown:
+			dp.handleDown(true)
+		case config.Get().Planner.Keys.ScrollUp:
+			dp.handleUp(true)
 		case config.Get().Planner.Keys.Quit:
 			return dp.quit()
 		}
@@ -84,10 +88,10 @@ func (dp *dinnerPlan) assign(targetPaneIndex int) {
 	sourceRecipeList.checkSelectedIndex()
 }
 
-func (dp *dinnerPlan) handleDown() {
-	dp.recipeLists[dp.paneFocusIndex].handleDown()
+func (dp *dinnerPlan) handleDown(isScroll bool) {
+	dp.recipeLists[dp.paneFocusIndex].handleDown(isScroll)
 }
 
-func (dp *dinnerPlan) handleUp() {
-	dp.recipeLists[dp.paneFocusIndex].handleUp()
+func (dp *dinnerPlan) handleUp(isScroll bool) {
+	dp.recipeLists[dp.paneFocusIndex].handleUp(isScroll)
 }
