@@ -30,23 +30,24 @@ type PlannerConfig struct {
 }
 
 type KeyConfig struct {
-	MainView     string `toml:"main_view"`
-	Focus        string `toml:"focus"`
-	Help         string `toml:"help"`
-	ShoppingList string `toml:"shopping_list"`
-	Recipes      string `toml:"recipes"`
-	Down         string `toml:"down"`
-	Up           string `toml:"up"`
-	ScrollDown   string `toml:"scroll_down"`
-	ScrollUp     string `toml:"scroll_up"`
-	Day1         string `toml:"day_1"`
-	Day2         string `toml:"day_2"`
-	Day3         string `toml:"day_3"`
-	Day4         string `toml:"day_4"`
-	Day5         string `toml:"day_5"`
-	Day6         string `toml:"day_6"`
-	Day7         string `toml:"day_7"`
-	Quit         string `toml:"quit"`
+	MainView           string `toml:"main_view"`
+	Focus              string `toml:"focus"`
+	Help               string `toml:"help"`
+	ShoppingList       string `toml:"shopping_list"`
+	Recipes            string `toml:"recipes"`
+	Down               string `toml:"down"`
+	Up                 string `toml:"up"`
+	ScrollDown         string `toml:"scroll_down"`
+	ScrollUp           string `toml:"scroll_up"`
+	Day1               string `toml:"day_1"`
+	Day2               string `toml:"day_2"`
+	Day3               string `toml:"day_3"`
+	Day4               string `toml:"day_4"`
+	Day5               string `toml:"day_5"`
+	Day6               string `toml:"day_6"`
+	Day7               string `toml:"day_7"`
+	Quit               string `toml:"quit"`
+	ShoppingListToggle string `toml:"shopping_list_toggle"`
 }
 
 type WebConfig struct {
@@ -149,6 +150,7 @@ func loadConfig() (*Config, error) {
 	defaultIfEmpty(&config.Planner.Keys.Day5, "5")
 	defaultIfEmpty(&config.Planner.Keys.Day6, "6")
 	defaultIfEmpty(&config.Planner.Keys.Day7, "7")
+	defaultIfEmpty(&config.Planner.Keys.ShoppingListToggle, " ")
 
 	return config, nil
 }
