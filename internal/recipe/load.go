@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/BurntSushi/toml"
@@ -30,6 +31,9 @@ func Load() ([]*Recipe, error) {
 		}
 	}
 
+	sort.Slice(recipes, func(i, j int) bool {
+		return recipes[i].Name < recipes[j].Name
+	})
 	return recipes, nil
 }
 
