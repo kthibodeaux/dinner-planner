@@ -7,14 +7,16 @@
     <h1>{{.Name}}</h1>
     <h2><a href="/categories/{{.CategoryID}}">Back to {{.CookbookCategory}}</a></h2>
     {{range .Parts}}
-      <button class="toggle-btn" onclick="toggleGroup('{{.GetName}}')">
-        <span class="left">{{.GetName}}</span>
-        <span class="right">
-          {{if .GetPrepTime}}Prep Time: {{.GetPrepTime}}{{end}}
-          {{if and .PrepTime .CookTime}} - {{end}}
-          {{if .GetCookTime}}Cook Time: {{.GetCookTime}}{{end}}
-        </span>
-      </button>
+      {{if .Ingredients}}
+        <button class="toggle-btn" onclick="toggleGroup('{{.GetName}}')">
+          <span class="left">{{.GetName}}</span>
+          <span class="right">
+            {{if .GetPrepTime}}Prep Time: {{.GetPrepTime}}{{end}}
+            {{if and .PrepTime .CookTime}} - {{end}}
+            {{if .GetCookTime}}Cook Time: {{.GetCookTime}}{{end}}
+          </span>
+        </button>
+      {{end}}
       <div id="{{.GetName}}" class="group">
         {{if .Ingredients}}
           <ul class="ingredients">
